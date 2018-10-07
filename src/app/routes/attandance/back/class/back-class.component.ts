@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
+import { backData } from '../back-mockdata';
 
 @Component({
   selector: 'app-back-class',
@@ -13,10 +14,10 @@ export class BackClassComponent implements OnInit {
     categories: [],
     owners: ['zxx'],
   };
-
+  data = backData;
   list: any[] = [];
 
-  loading = true;
+  loading = false;
 
   // region: cateogry
   categories = [
@@ -36,35 +37,17 @@ export class BackClassComponent implements OnInit {
   }
   // endregion
 
-  constructor(private http: _HttpClient, public msg: NzMessageService) {}
+  constructor(private http: _HttpClient, public msg: NzMessageService) { }
 
   ngOnInit() {
     this.getData();
   }
 
   getData() {
-    this.loading = true;
-    this.http.get('/api/list', { count: this.q.ps }).subscribe((res: any) => {
-      this.list = res.map(item => {
-        item.activeUser = this.formatWan(item.activeUser);
-        return item;
-      });
-      this.loading = false;
-    });
+    this.list = this.data;
   }
 
-  private formatWan(val) {
-    const v = val * 1;
-    if (!v || isNaN(v)) return '';
-
-    let result = val;
-    if (val > 10000) {
-      result = Math.floor(val / 10000);
-      result = `${result}`;
-    }
-    return result;
-  }
-  showDetail(){
-    window.location.href="/#/attandance/back/detail";
+  showDetail() {
+    window.location.href = "/#/attandance/back/detail";
   }
 }
