@@ -1,0 +1,47 @@
+<page-header [title]="'归寝统计（班级单位）'"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form se-container="1" size="compact" gutter="32" [labelWidth]="null">
+    <se label="所属年级" line>
+      <tag-select>
+        <nz-tag *ngFor="let i of categories; let idx = index" nzMode="checkable" [nzChecked]="i.value" (nzCheckedChange)="changeCategory($event, idx)">
+          {{i.text}}
+        </nz-tag>
+      </tag-select>
+    </se>
+    <se label="其它选项">
+      <div class="ant-form ant-form-inline">
+        <nz-form-item>
+          <nz-form-label nzFor="rate">日期</nz-form-label>
+          <nz-form-control>
+            <input nz-input [(ngModel)]="q.no" name="no" placeholder="请输入" id="no">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </se>
+  </form>
+</nz-card>
+<nz-list [nzLoading]="loading" [nzDataSource]="list" [nzRenderItem]="item" [nzGrid]="{ gutter: 24, xl: 6, lg: 8, md: 8, sm: 12, xs: 24 }">
+  <ng-template #item let-item>
+    <nz-list-item>
+      <nz-card nzHoverable >
+        
+        <nz-card-meta [nzTitle]="item.title2" [nzAvatar]="nzAvatar">
+        </nz-card-meta>
+        <div class="card-info d-flex">
+          <div>
+            <p>班级人数</p>
+            <p>{{item.activeUser}}
+              <em class="wan">人</em>
+            </p>
+          </div>
+          <div>
+            <p>归寝人数</p>
+            <p (click)="showDetail()">{{item.activeUser}}
+              <em class="wan">人</em>
+            </p>
+          </div>
+        </div>
+      </nz-card>
+    </nz-list-item>
+  </ng-template>
+</nz-list>
