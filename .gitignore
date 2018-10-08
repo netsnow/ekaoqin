@@ -1,17 +1,17 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-
+ekaoqin-java/target
 /tmp
 /out-tsc
 
 # dependencies
-/node_modules
+ekaoqin-web/node_modules
 # /package-lock.json
 /yarn.lock
 
 # IDEs and editors
-/.idea
+ekaoqin-java/.idea
 .project
 .classpath
 .c9/
@@ -44,3 +44,5 @@ yarn-error.log
 # System Files
 .DS_Store
 Thumbs.db
+
+ekaoqin-java/ekaoqin.iml
