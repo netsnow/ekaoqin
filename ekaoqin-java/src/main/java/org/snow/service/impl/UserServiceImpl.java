@@ -42,7 +42,10 @@ public class UserServiceImpl implements UserService {
         Iterable<User> geted = usersRepository.findAll();
         List<User> list = new ArrayList<User>();
         geted.forEach(single -> {
-            list.add(single);
+            if(!single.getIsDeleted()){
+                list.add(single);
+            }
+
         });
         return list;
     }
@@ -82,9 +85,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUserById(Long id) {
 
-        usersRepository.deleteById(id);
-        User user = new User();
-        user.setId(id);
+        Optional<User> user = usersRepository.findById(id);
+        user.get().setIsDeleted(true);
+        usersRepository.save(user.get());
+
     }
 
     public PageInfo<User> searchUsers(User user, int pageNum, int pageSize) {

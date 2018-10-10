@@ -6,8 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "class")
-public class Class extends BaseEntity {
+@Table(name = "claxx")
+public class Claxx extends BaseEntity {
 
     @Id
     @Column(name = "id")

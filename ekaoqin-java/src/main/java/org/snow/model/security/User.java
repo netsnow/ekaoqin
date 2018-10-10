@@ -1,6 +1,7 @@
 package org.snow.model.security;
 
 import io.swagger.annotations.ApiModelProperty;
+import org.snow.model.BaseEntity;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @Column(name = "ID")
