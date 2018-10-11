@@ -82,7 +82,7 @@ public class Student extends BaseEntity {
         this.img = img;
     }
 
-    public boolean isBackStatus() {
+    public boolean getBackStatus() {
         return backStatus;
     }
 
