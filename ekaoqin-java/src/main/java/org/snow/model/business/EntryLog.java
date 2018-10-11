@@ -3,7 +3,7 @@ package org.snow.model.business;
 import org.snow.model.BaseEntity;
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "entry_log")
@@ -13,11 +13,9 @@ public class EntryLog extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "date")
-    private Date date;
-
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "face_sys_user_id", length = 100, unique = false)
+    @Size(min = 1, max = 100)
+    private String faceSysUserId;
 
     @Column(name = "camera_id")
     private String cameraId;
@@ -30,20 +28,12 @@ public class EntryLog extends BaseEntity {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public String getFaceSysUserId() {
+        return faceSysUserId;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setFaceSysUserId(String faceSysUserId) {
+        this.faceSysUserId = faceSysUserId;
     }
 
     public String getCameraId() {
