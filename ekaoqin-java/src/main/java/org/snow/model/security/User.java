@@ -30,12 +30,10 @@ public class User extends BaseEntity {
     private String password;
 
     @Column(name = "FIRSTNAME", length = 50)
-    @NotNull
     @Size(min = 4, max = 50)
     private String firstname;
 
     @Column(name = "LASTNAME", length = 50)
-    @NotNull
     @Size(min = 4, max = 50)
     private String lastname;
 
@@ -46,7 +44,6 @@ public class User extends BaseEntity {
 
 
     @Column(name = "EMAIL", length = 50)
-    @NotNull
     @Size(min = 4, max = 50)
     private String email;
 
@@ -56,7 +53,6 @@ public class User extends BaseEntity {
 
     @Column(name = "LASTPASSWORDRESETDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
     private Date lastPasswordResetDate;
 
     @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
