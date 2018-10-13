@@ -11,24 +11,20 @@ import { UserService } from '../../common/service/user.service';
   templateUrl: './user-list.component.html',
 })
 export class UserListComponent implements OnInit {
+  fullname = "";
   users = userData;
-  q: any = {
-    pi: 1,
-    ps: 10,
-    sorter: '',
-    status: null,
-    statusList: [],
-  };
   data: any = {};
   loading = false;
-  status = [
-    { index: 0, text: '禁用', value: false, type: 'error', checked: false },
-    { index: 1, text: '正常', value: false, type: 'success', checked: false },
-  ];
+  modalUsername = "";
+  modalFullname = "";
+  modalUserType = "";
+  //status = [
+  //  { index: 0, text: '禁用', value: false, type: 'error', checked: false },
+  //  { index: 1, text: '正常', value: false, type: 'success', checked: false },
+  //];
   userType = [
-    { index: 0, text: '管理员' },
-    { index: 1, text: '教师' },
-    { index: 2, text: '学生' },
+    { index: 'ROLE_ADMIN', text: '管理员' },
+    { index: 'ROLE_USER', text: '教师' },
   ];
   userClass = [
     { index: 0, text: '一班' },
@@ -46,23 +42,10 @@ export class UserListComponent implements OnInit {
     { title: '', index: 'key', type: 'checkbox' },
     { title: '用户名', index: 'username' },
     { title: '用户姓名', index: 'fullname' },
-    { title: '用户种类', index: 'usertype' },
-    {
-      title: '状态',
-      index: 'status'
-    },
+    { title: '用户种类', index: 'usertype', render: 'usertype' },
     {
       title: '操作',
-      buttons: [
-        {
-          text: '编辑',
-          click: (item: any) => this.msg.success(`编辑${item.id}`),
-        },
-        {
-          text: '删除',
-          click: (item: any) => this.msg.success(`删除${item.id}`),
-        },
-      ],
+      render: 'operation',
     },
   ];
   selectedRows: STData[] = [];
@@ -116,20 +99,69 @@ export class UserListComponent implements OnInit {
   }
 
   add(tpl: TemplateRef<{}>) {
+    this.modalUsername = '';
+    this.modalFullname = '';
+    this.modalUserType = 'ROLE_USER';
     this.modalSrv.create({
       nzTitle: '新建用户',
       nzContent: tpl,
       nzOnOk: () => {
         this.loading = true;
-        this.http
-          .post('/rule', { description: this.description })
-          .subscribe(() => {
-            this.getData();
-          });
+        var userInfo = {};
+        userInfo["username"] = this.modalUsername;
+        userInfo["fullname"] = this.modalFullname;
+        userInfo["password"] = '111111';
+        userInfo["enabled"] = true;
+        var userAuthoritys = [{}];
+        userAuthoritys[0]["name"] = this.modalUserType;
+        userInfo["authorities"] = userAuthoritys;
+        console.log(userInfo);
+        this.userService.saveUser(userInfo)
+          .subscribe(
+            resp => {
+              this.loading = false;
+              this.getData();
+            },
+            error => {
+              this.loading = false;
+              console.log(error);
+            }
+          );
       },
     });
   }
+  edit(tpl: TemplateRef<{}>, id, username, fullname, usertype) {
+    this.modalUsername = username;
+    this.modalFullname = fullname;
+    this.modalUserType = usertype;
 
+    this.modalSrv.create({
+      nzTitle: '编辑用户',
+      nzContent: tpl,
+      nzOnOk: () => {
+        this.loading = true;
+        var userInfo = {};
+        userInfo["id"] = id;
+        userInfo["username"] = this.modalUsername;
+        userInfo["fullname"] = this.modalFullname;
+        var userAuthoritys = [{}];
+        userAuthoritys[0]["name"] = this.modalUserType;
+        userInfo["authorities"] = userAuthoritys;
+        console.log(userInfo);
+        this.userService.editUser(id,userInfo)
+          .subscribe(
+            resp => {
+              this.loading = false;
+              this.getData();
+            },
+            error => {
+              this.loading = false;
+              console.log(error);
+            }
+          );
+      },
+    });
+  }
   reset(ls: any[]) {
     for (const item of ls) item.value = false;
     this.getData();

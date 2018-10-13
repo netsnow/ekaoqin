@@ -56,15 +56,15 @@ export class StartupService {
             // 应用信息：包括站点名、描述、年份
             this.settingService.setApp(res.app);
             // 用户信息：包括姓名、头像、邮箱地址
-            this.settingService.setUser(res.user);
+            //this.settingService.setUser(res.user);
             // ACL：设置权限为不全量
             //this.aclService.setFull(true);
             this.aclService.setFull(false);
             var authorities = this.settingService.user["authorities"];
             var roles = [];
-            //console.log(authorities)
+            console.log(authorities)
             if (authorities == undefined) {
-              //window.location.href = "#/passport/login";
+              window.location.href = "#/passport/login";
             }else{
               for (var i = 0; i < authorities.length; i++) {
                 roles.push(authorities[i].authority)

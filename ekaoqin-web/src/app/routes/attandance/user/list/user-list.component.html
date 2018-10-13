@@ -6,17 +6,7 @@
         <nz-form-item>
           <nz-form-label nzFor="no">用户姓名</nz-form-label>
           <nz-form-control>
-            <input nz-input [(ngModel)]="q.no" name="no" placeholder="请输入" id="no">
-          </nz-form-control>
-        </nz-form-item>
-      </nz-col>
-      <nz-col nzMd="8" nzSm="24">
-        <nz-form-item>
-          <nz-form-label nzFor="status">使用状态</nz-form-label>
-          <nz-form-control>
-            <nz-select [(ngModel)]="q.status" name="status" id="status" [nzPlaceHolder]="'请选择'" [nzShowSearch]="true">
-              <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
-            </nz-select>
+            <input nz-input [(ngModel)]="fullname" name="fullname" placeholder="请输入" id="fullname">
           </nz-form-control>
         </nz-form-item>
       </nz-col>
@@ -66,43 +56,35 @@
     </nz-alert>
   </div>
   <st #st [columns]="columns" [data]="data" [loading]="loading" (checkboxChange)="checkboxChange($event)" (filterChange)="getData()">
-
+    <ng-template st-row="usertype" let-i>
+      <span>{{i.authorities[0]['name']}}
+      </span>
+    </ng-template>
+    <ng-template st-row="operation" let-i >
+      <a (click)="edit(modalContent,i.id,i.username,i.fullname,i.authorities[0]['name'])" *ngIf="i.username != 'admin'">编辑</a>
+      <nz-divider nzType="vertical" *ngIf="i.username != 'admin'"></nz-divider>
+      <a (click)="remove(i.id)" *ngIf="i.username != 'admin'">删除</a>
+    </ng-template>
   </st>
 </nz-card>
 <ng-template #modalContent>
   <nz-form-item>
-    <nz-form-label nzFor="no">用户名</nz-form-label>
+    <nz-form-label nzFor="modalUsername">用户名</nz-form-label>
     <nz-form-control>
-      <input nz-input [(ngModel)]="description" name="description" placeholder="请输入" id="no">
+      <input nz-input [(ngModel)]="modalUsername" name="modalUsername" placeholder="请输入" id="modalUsername">
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzFor="no">用户姓名</nz-form-label>
+    <nz-form-label nzFor="modalFullname">用户姓名</nz-form-label>
     <nz-form-control>
-      <input nz-input [(ngModel)]="description" name="description" placeholder="请输入" id="no">
+      <input nz-input [(ngModel)]="modalFullname" name="modalFullname" placeholder="请输入" id="modalFullname">
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzFor="no">用户种类</nz-form-label>
+    <nz-form-label nzFor="modalUserType">用户种类</nz-form-label>
     <nz-form-control>
-      <nz-select [nzPlaceHolder]="'请选择'"  [nzShowSearch]="true" style="width:200px">
-        <nz-option *ngFor="let i of userType; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label nzFor="no">班级</nz-form-label>
-    <nz-form-control>
-      <nz-select [nzPlaceHolder]="'请选择'"  [nzShowSearch]="true" style="width:200px">
-        <nz-option *ngFor="let i of userClass; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label nzFor="no">宿舍</nz-form-label>
-    <nz-form-control>
-      <nz-select [nzPlaceHolder]="'请选择'"  [nzShowSearch]="true" style="width:200px">
-        <nz-option *ngFor="let i of userRoom; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
+      <nz-select [nzPlaceHolder]="'请选择'"  [nzShowSearch]="true" [(ngModel)]="modalUserType" [ngModelOptions]="{standalone: true}"style="width:200px">
+        <nz-option *ngFor="let i of userType;" [nzLabel]="i.text" [nzValue]="i.index"></nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
