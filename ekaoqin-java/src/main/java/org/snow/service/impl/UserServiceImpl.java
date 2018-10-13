@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         Iterable<User> geted = usersRepository.findAll();
         List<User> list = new ArrayList<User>();
         geted.forEach(single -> {
-            if(!single.getIsDeleted()){
+            if (single.getIsDeleted() == null || single.getIsDeleted() == false) {
                 list.add(single);
             }
 

@@ -18,6 +18,9 @@ export class UserService {
         private msg: NzMessageService,
         private http: HttpClient,
     ) { }
+    getAllUsers() {
+        return this.http.get(this.userUrl)
+    }
     getUsers(searchInfo, page, size) {
         var condition = {};
         if (searchInfo.username != "") {

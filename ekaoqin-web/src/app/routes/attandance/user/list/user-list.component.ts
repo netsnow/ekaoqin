@@ -4,6 +4,7 @@ import { _HttpClient } from '@delon/theme';
 import { tap, map } from 'rxjs/operators';
 import { STComponent, STColumn, STData } from '@delon/abc';
 import { userData } from './user-mockdata';
+import { UserService } from '../../common/service/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -18,7 +19,7 @@ export class UserListComponent implements OnInit {
     status: null,
     statusList: [],
   };
-  data: any[] = [];
+  data: any = {};
   loading = false;
   status = [
     { index: 0, text: '禁用', value: false, type: 'error', checked: false },
@@ -73,6 +74,7 @@ export class UserListComponent implements OnInit {
     private http: _HttpClient,
     public msg: NzMessageService,
     private modalSrv: NzModalService,
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
@@ -80,7 +82,20 @@ export class UserListComponent implements OnInit {
   }
 
   getData() {
-    this.data = this.users;
+    this.loading = true;
+    this.userService.getAllUsers().subscribe(
+      resp => {
+        this.loading = false;
+        this.data = resp;
+        console.log(resp);
+
+      },
+      error => {
+        this.loading = false;
+        console.log(error);
+      }
+    )
+    //this.data = this.users;
   }
 
   checkboxChange(list: STData[]) {

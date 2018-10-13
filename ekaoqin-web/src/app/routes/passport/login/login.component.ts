@@ -77,7 +77,7 @@ export class UserLoginComponent implements OnDestroy {
     } else {
 
     }
-    //this.loading = true;
+    this.loading = true;
     var loginInfo = {
       username: this.userName.value,
       password: this.password.value,
@@ -85,7 +85,7 @@ export class UserLoginComponent implements OnDestroy {
     this.authService.login(loginInfo)
       .subscribe(
         resp => {
-          //this.loading = false;
+          this.loading = false;
           //console.log(resp["token"]);
           // 清空路由复用信息
           this.reuseTabService.clear();
