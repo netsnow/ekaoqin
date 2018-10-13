@@ -19,7 +19,7 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "USERNAME", length = 50, unique = true)
+    @Column(name = "USER_NAME", length = 50, unique = true)
     @NotNull
     @Size(min = 4, max = 50)
     private String username;
@@ -50,7 +50,7 @@ public class User extends BaseEntity {
     @Size(min = 4, max = 50)
     private String email;
 
-    @Column(name = "ENABLED")
+    @Column(name = "IS_ENABLED")
     @NotNull
     private Boolean enabled;
 

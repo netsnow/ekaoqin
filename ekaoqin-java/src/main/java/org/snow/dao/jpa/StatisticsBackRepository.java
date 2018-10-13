@@ -10,7 +10,7 @@ import java.util.Date;
 
 @RepositoryRestResource(collectionResourceRel = "statisticsBack", path = "/statisticsBack")
 public interface StatisticsBackRepository extends PagingAndSortingRepository<StatisticsBack, Long> {
-    @Query("delete u from StatisticsBack u where u.date<:date")
-    void deleteByDate(@Param("date") Date date);
+    //@Query("delete u from StatisticsBack u where u.date<:date")
+    //void deleteByDate(@Param("date") Date date);
 
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service("userService")
+@Service("claxxService")
 public class ClaxxServiceImpl implements ClaxxService {
 
     @Autowired

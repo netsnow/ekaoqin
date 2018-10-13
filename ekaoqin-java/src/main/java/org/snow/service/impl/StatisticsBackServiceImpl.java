@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@Service("entryLogService")
+@Service("statisticsBackService")
 public class StatisticsBackServiceImpl implements StatisticsBackService {
 
     @Autowired
@@ -70,7 +70,7 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
         Calendar rightNow = Calendar.getInstance();
         rightNow.add(Calendar.MONTH, -3);//日期减3个月
         Date lastMonth = rightNow.getTime();
-        statisticsBackRepository.deleteByDate(lastMonth);
+        //statisticsBackRepository.deleteByDate(lastMonth);
 
         //添加当日数据
         List<Student> students = studentService.getAllStudents();
