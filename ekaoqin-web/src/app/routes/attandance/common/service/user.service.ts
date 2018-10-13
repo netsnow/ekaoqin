@@ -48,29 +48,29 @@ export class UserService {
     getMyRoles() {
         return this.http.get(this.userRolesUrl)
     }
-    saveUser(userForm) {
-        console.log(userForm)
-
-        var userInfo = {};
-        userInfo["username"] = userForm.get("username").value;
-        userInfo["fullname"] = userForm.get("fullname").value;
-        userInfo["password"] = userForm.get("password").value;
-        userInfo["enabled"] = true;
-        var userAuthoritys = [];
-        var userRoles = userForm.get("userRoles").value;
-        for (var i=0; i < userRoles.length; i++) {
-            userAuthoritys[i] = {};
-            userAuthoritys[i].name = userRoles[i];
-        }
-        userInfo["authorities"] = userAuthoritys;
+    saveUser(userInfo) {
+        console.log(userInfo)
+        return this.http.post(this.userUrl, userInfo);
 
         //表单里存在userid时为编辑，不存在时为新增
-        if (userForm.value.hasOwnProperty("id")) {
-            userInfo["id"] = userForm.get("id").value;
-            return this.http.put(this.userUrl + "/" + userInfo["id"], userInfo);
-        } else {
-            return this.http.post(this.userUrl, userInfo);
-        }
+        //if (userInfo.hasOwnProperty("id")) {
+        //    userInfo["id"] = userForm.get("id").value;
+        //    return this.http.put(this.userUrl + "/" + userInfo["id"], userInfo);
+        //} else {
+        //    return this.http.post(this.userUrl, userInfo);
+        //}
+    }
+    editUser(id, userInfo) {
+        console.log(userInfo)
+        return this.http.put(this.userUrl + '/' + id, userInfo);
+
+        //表单里存在userid时为编辑，不存在时为新增
+        //if (userInfo.hasOwnProperty("id")) {
+        //    userInfo["id"] = userForm.get("id").value;
+        //    return this.http.put(this.userUrl + "/" + userInfo["id"], userInfo);
+        //} else {
+        //    return this.http.post(this.userUrl, userInfo);
+        //}
     }
     resetPassword(userId, passowrd) {
         var userInfo = {};
