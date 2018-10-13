@@ -57,8 +57,20 @@ export class StartupService {
             this.settingService.setApp(res.app);
             // 用户信息：包括姓名、头像、邮箱地址
             this.settingService.setUser(res.user);
-            // ACL：设置权限为全量
-            this.aclService.setFull(true);
+            // ACL：设置权限为不全量
+            //this.aclService.setFull(true);
+            this.aclService.setFull(false);
+            var authorities = this.settingService.user["authorities"];
+            var roles = [];
+            //console.log(authorities)
+            if (authorities == undefined) {
+              window.location.href = "#/passport/login";
+            }else{
+              for (var i = 0; i < authorities.length; i++) {
+                roles.push(authorities[i].authority)
+              }
+              this.aclService.setRole(roles)
+            }
             // 初始化菜单
             this.menuService.add(res.menu);
             // 设置页面标题的后缀

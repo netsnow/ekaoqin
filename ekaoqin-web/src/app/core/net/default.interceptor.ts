@@ -1,4 +1,4 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable, Injector,Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   HttpInterceptor,
@@ -10,19 +10,27 @@ import {
   HttpProgressEvent,
   HttpResponse,
   HttpUserEvent,
+  HttpHeaders,
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
+import {
+  TokenService,
+  DA_SERVICE_TOKEN,
+} from '@delon/auth';
 
 /**
  * 默认HTTP拦截器，其注册细节见 `app.module.ts`
  */
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
-  constructor(private injector: Injector) {}
+  constructor(
+    private injector: Injector,
+    @Inject(DA_SERVICE_TOKEN) private tokenService: TokenService,
+    ) {}
 
   get msg(): NzMessageService {
     return this.injector.get(NzMessageService);
@@ -96,9 +104,18 @@ export class DefaultInterceptor implements HttpInterceptor {
     if (!url.startsWith('https://') && !url.startsWith('http://')) {
       url = environment.SERVER_URL + url;
     }
-
+    let t = this.tokenService.get();
+    let authorization = '';
+    if (t.token) {
+      authorization = 'Bearer ' + t.token
+    }
+    let headers = new HttpHeaders({
+      
+      'Authorization': authorization,
+    })
     const newReq = req.clone({
       url: url,
+      headers: headers,
     });
     return next.handle(newReq).pipe(
       mergeMap((event: any) => {
