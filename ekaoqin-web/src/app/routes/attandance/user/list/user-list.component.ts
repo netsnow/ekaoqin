@@ -14,6 +14,7 @@ export class UserListComponent implements OnInit {
   fullname = "";
   users = userData;
   data: any = {};
+  params: any = { fullname: '123', usertype: 'ROLE_USER' };
   loading = false;
   modalUsername = "";
   modalFullname = "";
@@ -148,7 +149,7 @@ export class UserListComponent implements OnInit {
         userAuthoritys[0]["name"] = this.modalUserType;
         userInfo["authorities"] = userAuthoritys;
         console.log(userInfo);
-        this.userService.editUser(id,userInfo)
+        this.userService.editUser(id, userInfo)
           .subscribe(
             resp => {
               this.loading = false;
