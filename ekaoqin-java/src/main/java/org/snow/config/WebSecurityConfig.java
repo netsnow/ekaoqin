@@ -111,7 +111,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**/*.css",
                 "/**/*.js"
             )
-
+            
+            //OPTIONS预请求全部放行
+            .and()
+            .ignoring()
+            .antMatchers(
+                HttpMethod.OPTIONS,
+                "**",
+                "**/**"
+            )
             //匿名请求-所有类型（仅用于测试环境，生成环境请删掉）
             .and()
             .ignoring()
