@@ -64,7 +64,7 @@ export class StartupService {
             var roles = [];
             //console.log(authorities)
             if (authorities == undefined) {
-              window.location.href = "#/passport/login";
+              //window.location.href = "#/passport/login";
             }else{
               for (var i = 0; i < authorities.length; i++) {
                 roles.push(authorities[i].authority)

@@ -28,6 +28,7 @@ export class HeaderUserComponent {
 
   logout() {
     this.tokenService.clear();
+    this.settings.setUser({});
     this.router.navigateByUrl(this.tokenService.login_url);
   }
 }

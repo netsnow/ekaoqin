@@ -50,9 +50,6 @@ export class UserLoginComponent implements OnDestroy {
     this.form = fb.group({
       userName: [null, [Validators.required, Validators.minLength(5)]],
       password: [null, Validators.required],
-      mobile: [null, [Validators.required, Validators.pattern(/^1\d{10}$/)]],
-      captcha: [null, [Validators.required]],
-      remember: [true],
     });
     modalSrv.closeAll();
   }
@@ -65,31 +62,7 @@ export class UserLoginComponent implements OnDestroy {
   get password() {
     return this.form.controls.password;
   }
-  get mobile() {
-    return this.form.controls.mobile;
-  }
-  get captcha() {
-    return this.form.controls.captcha;
-  }
 
-  // endregion
-
-  switch(ret: any) {
-    this.type = ret.index;
-  }
-
-  // region: get captcha
-
-  count = 0;
-  interval$: any;
-
-  getCaptcha() {
-    this.count = 59;
-    this.interval$ = setInterval(() => {
-      this.count -= 1;
-      if (this.count <= 0) clearInterval(this.interval$);
-    }, 1000);
-  }
 
   // endregion
 
@@ -104,7 +77,6 @@ export class UserLoginComponent implements OnDestroy {
     } else {
 
     }
-
     //this.loading = true;
     var loginInfo = {
       username: this.userName.value,
@@ -133,7 +105,7 @@ export class UserLoginComponent implements OnDestroy {
         error => {
           this.loading = false;
           this.error = `账户或密码错误`;
-          //console.log(error);
+          console.log(error);
         });
   }
 
@@ -152,6 +124,7 @@ export class UserLoginComponent implements OnDestroy {
         }
         this.aclService.setRole(roles)
         this.menuService.resume();
+        this.router.navigate(['/']);
       },
       error => {
         this.loading = false;
