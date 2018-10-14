@@ -90,13 +90,17 @@ export class UserListComponent implements OnInit {
     );
   }
 
-  remove() {
-    this.http
-      .delete('/rule', { nos: this.selectedRows.map(i => i.no).join(',') })
-      .subscribe(() => {
+  remove(id) {
+    this.userService.remove(id).subscribe(
+      resp=>{
+        this.msg.success("已删除！");
         this.getData();
-        this.st.clearCheck();
-      });
+      },
+      error=>{
+        this.msg.error("删除失败！");
+        console.log(error)
+      }
+    )
   }
 
   add(tpl: TemplateRef<{}>) {
@@ -121,10 +125,12 @@ export class UserListComponent implements OnInit {
           .subscribe(
             resp => {
               this.loading = false;
+              this.msg.success("已保存！");
               this.getData();
             },
             error => {
               this.loading = false;
+              this.msg.error("保存失败！");
               console.log(error);
             }
           );
@@ -153,10 +159,12 @@ export class UserListComponent implements OnInit {
           .subscribe(
             resp => {
               this.loading = false;
+              this.msg.success("已保存！");
               this.getData();
             },
             error => {
               this.loading = false;
+              this.msg.error("保存失败！");
               console.log(error);
             }
           );

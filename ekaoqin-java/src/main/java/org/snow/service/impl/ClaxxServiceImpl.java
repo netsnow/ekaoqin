@@ -22,7 +22,7 @@ public class ClaxxServiceImpl implements ClaxxService {
         Iterable<Claxx> geted = claxxRepository.findAll();
         List<Claxx> list = new ArrayList<Claxx>();
         geted.forEach(single -> {
-            if (!single.getIsDeleted()) {
+            if (single.getIsDeleted() == null || single.getIsDeleted() == false) {
                 list.add(single);
             }
         });

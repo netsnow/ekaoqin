@@ -40,7 +40,7 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
         Iterable<StatisticsBack> geted = statisticsBackRepository.findAll();
         List<StatisticsBack> list = new ArrayList<StatisticsBack>();
         geted.forEach(single -> {
-            if (!single.getIsDeleted()) {
+            if (single.getIsDeleted() == null || single.getIsDeleted() == false) {
                 list.add(single);
             }
         });

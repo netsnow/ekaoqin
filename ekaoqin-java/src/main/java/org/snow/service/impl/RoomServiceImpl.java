@@ -23,7 +23,7 @@ public class RoomServiceImpl implements RoomService {
         Iterable<Room> geted = roomRepository.findAll();
         List<Room> list = new ArrayList<Room>();
         geted.forEach(single -> {
-            if (!single.getIsDeleted()) {
+            if (single.getIsDeleted() == null || single.getIsDeleted() == false) {
                 list.add(single);
             }
         });

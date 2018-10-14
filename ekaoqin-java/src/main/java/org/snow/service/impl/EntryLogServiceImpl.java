@@ -28,7 +28,7 @@ public class EntryLogServiceImpl implements EntryLogService {
         Iterable<EntryLog> geted = entryLogRepository.findAll();
         List<EntryLog> list = new ArrayList<EntryLog>();
         geted.forEach(single -> {
-            if (!single.getIsDeleted()) {
+            if (single.getIsDeleted() == null || single.getIsDeleted() == false) {
                 list.add(single);
             }
         });

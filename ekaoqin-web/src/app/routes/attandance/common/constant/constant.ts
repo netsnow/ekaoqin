@@ -8,5 +8,6 @@ export var restUrl = {
     userSearch: 'user/search',
     validatePassword: 'user/validatePassword',
     changePassword: 'user/changePassword',
+    claxx: 'claxx',
     
 }

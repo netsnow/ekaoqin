@@ -4,6 +4,7 @@ import { _HttpClient } from '@delon/theme';
 import { tap, map } from 'rxjs/operators';
 import { STComponent, STColumn, STData } from '@delon/abc';
 import { classData } from './class-mockdata';
+import { ClaxxService } from '../../common/service/claxx.service';
 
 @Component({
   selector: 'app-class-list',
@@ -18,7 +19,7 @@ export class ClassListComponent implements OnInit {
     status: null,
     statusList: [],
   };
-  data: any[] = [];
+  data: any = {};
   loading = false;
   status = [
     { index: 0, text: '已毕业', value: false, type: 'error', checked: false },
@@ -29,10 +30,10 @@ export class ClassListComponent implements OnInit {
   st: STComponent;
   columns: STColumn[] = [
     { title: '', index: 'key', type: 'checkbox' },
-    { title: '班级名', index: 'classname' },
+    { title: '班级名', index: 'name' },
     {
       title: '状态',
-      index: 'status'
+      index: 'isDeleted'
     },
     {
       title: '操作',
@@ -57,6 +58,7 @@ export class ClassListComponent implements OnInit {
     private http: _HttpClient,
     public msg: NzMessageService,
     private modalSrv: NzModalService,
+    private classService: ClaxxService,
   ) { }
 
   ngOnInit() {
@@ -64,7 +66,19 @@ export class ClassListComponent implements OnInit {
   }
 
   getData() {
-    this.data = this.classes;
+    this.loading = true;
+    this.classService.getAllClaxxes().subscribe(
+      resp => {
+        this.loading = false;
+        this.data = resp;
+        console.log(resp);
+
+      },
+      error => {
+        this.loading = false;
+        console.log(error);
+      }
+    )
   }
 
   checkboxChange(list: STData[]) {

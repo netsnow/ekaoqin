@@ -26,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
         Iterable<Student> geted = studentRepository.findAll();
         List<Student> list = new ArrayList<Student>();
         geted.forEach(single -> {
-            if (!single.getIsDeleted()) {
+            if (single.getIsDeleted() == null || single.getIsDeleted() == false) {
                 list.add(single);
             }
         });
