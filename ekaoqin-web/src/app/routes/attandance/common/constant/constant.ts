@@ -9,5 +9,6 @@ export var restUrl = {
     validatePassword: 'user/validatePassword',
     changePassword: 'user/changePassword',
     claxx: 'claxx',
+    room:'room',
     
 }

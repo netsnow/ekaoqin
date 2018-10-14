@@ -47,7 +47,7 @@
   </div>
   <st #st [columns]="columns" [data]="data" [loading]="loading" (checkboxChange)="checkboxChange($event)" (filterChange)="getData()">
     <ng-template st-row="operation" let-i >
-      <a (click)="edit(modalContent,i.id,i.name,status)" >编辑</a>
+      <a (click)="edit(modalContent,i.id,i.name)" >编辑</a>
       <nz-divider nzType="vertical" ></nz-divider>
       <a (click)="remove(i.id)" >删除</a>
     </ng-template>
