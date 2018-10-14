@@ -12,6 +12,8 @@ import { ClaxxService } from '../../common/service/claxx.service';
 })
 export class ClassListComponent implements OnInit {
   classes = classData;
+  modalClassname = "";
+  modalClassStatus = "";
   q: any = {
     pi: 1,
     ps: 10,
@@ -32,21 +34,8 @@ export class ClassListComponent implements OnInit {
     { title: '', index: 'key', type: 'checkbox' },
     { title: '班级名', index: 'name' },
     {
-      title: '状态',
-      index: 'isDeleted'
-    },
-    {
       title: '操作',
-      buttons: [
-        {
-          text: '编辑',
-          click: (item: any) => this.msg.success(`编辑${item.id}`),
-        },
-        {
-          text: '删除',
-          click: (item: any) => this.msg.success(`删除${item.id}`),
-        },
-      ],
+      render: 'operation',
     },
   ];
   selectedRows: STData[] = [];
@@ -89,30 +78,74 @@ export class ClassListComponent implements OnInit {
     );
   }
 
-  remove() {
-    this.http
-      .delete('/rule', { nos: this.selectedRows.map(i => i.no).join(',') })
-      .subscribe(() => {
+  remove(id) {
+    this.classService.remove(id).subscribe(
+      resp=>{
+        this.msg.success("已删除！");
         this.getData();
-        this.st.clearCheck();
-      });
+      },
+      error=>{
+        this.msg.error("删除失败！");
+        console.log(error)
+      }
+    )
   }
 
   add(tpl: TemplateRef<{}>) {
+    this.modalClassname = '';
+    this.modalClassStatus = '';
     this.modalSrv.create({
       nzTitle: '新建班级',
       nzContent: tpl,
       nzOnOk: () => {
         this.loading = true;
-        this.http
-          .post('/rule', { description: this.description })
-          .subscribe(() => {
-            this.getData();
-          });
+        var classInfo = {};
+        classInfo["name"] = this.modalClassname;
+        this.classService.saveClaxx(classInfo)
+          .subscribe(
+            resp => {
+              this.loading = false;
+              this.msg.success("已保存！");
+              this.getData();
+            },
+            error => {
+              this.loading = false;
+              this.msg.error("保存失败！");
+              console.log(error);
+            }
+          );
       },
     });
   }
+  edit(tpl: TemplateRef<{}>, id, classname, classstatus) {
+    this.modalClassname = classname;
+    this.modalClassStatus = classstatus;
 
+    this.modalSrv.create({
+      nzTitle: '编辑班级',
+      nzContent: tpl,
+      nzOnOk: () => {
+        this.loading = true;
+        var classInfo = {};
+        classInfo["id"] = id;
+        classInfo["name"] = this.modalClassname;
+        console.log(classInfo);
+        this.classService.editClaxx(id, classInfo)
+          .subscribe(
+            resp => {
+              this.loading = false;
+              this.msg.success("已保存！");
+              this.getData();
+            },
+            error => {
+              this.loading = false;
+              this.msg.error("保存失败！");
+              console.log(error);
+            }
+          );
+      },
+    });
+  }
   reset(ls: any[]) {
     for (const item of ls) item.value = false;
     this.getData();
