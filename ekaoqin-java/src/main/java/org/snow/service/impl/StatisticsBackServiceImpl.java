@@ -4,6 +4,8 @@ package org.snow.service.impl;
 import org.snow.dao.jpa.ClaxxRepository;
 import org.snow.dao.jpa.RoomRepository;
 import org.snow.dao.jpa.StatisticsBackRepository;
+import org.snow.form.StatisticsBackClassRespond;
+import org.snow.form.StatisticsBackRoomRespond;
 import org.snow.form.StudentRespond;
 import org.snow.model.business.EntryLog;
 import org.snow.model.business.StatisticsBack;
@@ -61,6 +63,16 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
             }
         }
         return outList;
+    }
+
+    @Override
+    public List<StatisticsBackClassRespond> getStatisticsBacksClassByDate(Date date) {
+        return statisticsBackRepository.getClassByDate(date);
+    }
+
+    @Override
+    public List<StatisticsBackRoomRespond> getStatisticsBacksRoomByDate(Date date) {
+        return statisticsBackRepository.getRoomByDate(date);
     }
 
     @Override
