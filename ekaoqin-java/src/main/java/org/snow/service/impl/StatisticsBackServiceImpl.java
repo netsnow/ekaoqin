@@ -4,6 +4,7 @@ package org.snow.service.impl;
 import org.snow.dao.jpa.ClaxxRepository;
 import org.snow.dao.jpa.RoomRepository;
 import org.snow.dao.jpa.StatisticsBackRepository;
+import org.snow.form.StudentRespond;
 import org.snow.model.business.EntryLog;
 import org.snow.model.business.StatisticsBack;
 import org.snow.model.business.Student;
@@ -70,10 +71,10 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
         Calendar rightNow = Calendar.getInstance();
         rightNow.add(Calendar.MONTH, -3);//日期减3个月
         Date lastMonth = rightNow.getTime();
-        //statisticsBackRepository.deleteByDate(lastMonth);
+        statisticsBackRepository.deleteBeforeDate(lastMonth);
 
         //添加当日数据
-        List<Student> students = studentService.getAllStudents();
+        List<StudentRespond> students = studentService.getAllStudents();
 
         for (int i = 0; i < students.size(); i++) {
             StatisticsBack statisticsBack = new StatisticsBack();

@@ -1,14 +1,17 @@
 package org.snow.service.impl;
 
 
+import org.snow.dao.jpa.ClaxxRepository;
 import org.snow.dao.jpa.RoomRepository;
 import org.snow.dao.jpa.StudentRepository;
-import org.snow.model.business.Room;
+import org.snow.form.StudentRespond;
 import org.snow.model.business.Student;
-import org.snow.service.RoomService;
+
 import org.snow.service.StudentService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +23,24 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private RoomRepository roomRepository;
+
+    @Autowired
+    private ClaxxRepository claxxRepository;
+
     @Override
-    public List<Student> getAllStudents() {
+    public List<StudentRespond> getAllStudents() {
 
         Iterable<Student> geted = studentRepository.findAll();
-        List<Student> list = new ArrayList<Student>();
+        List<StudentRespond> list = new ArrayList<StudentRespond>();
         geted.forEach(single -> {
             if (single.getIsDeleted() == null || single.getIsDeleted() == false) {
-                list.add(single);
+                StudentRespond studentRespond = new StudentRespond();
+                BeanUtils.copyProperties(single,studentRespond);
+                studentRespond.setClaxxName(claxxRepository.findById(single.getClassId()).get().getName());
+                studentRespond.setRoomName(roomRepository.findById(single.getRoomId()).get().getName());
+                list.add(studentRespond);
             }
         });
         return list;

@@ -1,5 +1,6 @@
 package org.snow.service;
 
+import org.snow.form.StudentRespond;
 import org.snow.model.business.Room;
 import org.snow.model.business.Student;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface StudentService {
 
-    List<Student> getAllStudents();
+    List<StudentRespond> getAllStudents();
 
     Boolean addStudent(Student student);
 

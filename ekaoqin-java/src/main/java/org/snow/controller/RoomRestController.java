@@ -21,7 +21,7 @@ public class RoomRestController {
     }
 
     @RequestMapping(path = "/room", method = RequestMethod.POST)
-    public Boolean addClaxx(
+    public Boolean addRoom(
         @RequestBody Room room
     ) {
         return roomService.addRoom(room);
