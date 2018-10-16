@@ -22,6 +22,12 @@ const routes: Routes = [
     //data: { guard: 'ROLE_ADMIN' }
   },
   {
+    path: 'student',
+    loadChildren: './student/student.module#StudentModule',
+    //canActivateChild: [ACLGuard],
+    //data: { guard: 'ROLE_ADMIN' }
+  },
+  {
     path: 'discipline',
     loadChildren: './discipline/discipline.module#DisciplineModule',
     //canActivateChild: [ACLGuard],

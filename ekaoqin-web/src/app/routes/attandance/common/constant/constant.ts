@@ -10,5 +10,6 @@ export var restUrl = {
     changePassword: 'user/changePassword',
     claxx: 'claxx',
     room:'room',
+    student:'student',
     
 }

@@ -34,6 +34,12 @@
           "i18n": "room_mangement"
         },
         {
+          "text": "学生管理",
+          "link": "/attandance/student/list",
+          "icon": "icon-user",
+          "i18n": "student_mangement"
+        },
+        {
           "text": "违纪管理",
           "link": "/attandance/discipline/list",
           "icon": "icon-user",
