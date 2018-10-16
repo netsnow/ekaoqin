@@ -62,6 +62,12 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
+    <nz-form-label nzFor="modalCardId">身份证号</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="modalCardId" name="modalCardId" placeholder="请输入" id="modalCardId">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
     <nz-form-label nzFor="modalClaxxId">班级</nz-form-label>
     <nz-form-control>
       <nz-select [nzPlaceHolder]="'请选择'"  [nzShowSearch]="true" [(ngModel)]="modalClaxxId" [ngModelOptions]="{standalone: true}"style="width:200px">
