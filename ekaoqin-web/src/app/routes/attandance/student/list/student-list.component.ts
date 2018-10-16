@@ -16,6 +16,7 @@ export class StudentListComponent implements OnInit {
   modalStudentname = "";
   modalClaxxId = "";
   modalRoomId = "";
+  modalCardId = "";
   q: any = {
     pi: 1,
     ps: 10,
@@ -127,6 +128,7 @@ export class StudentListComponent implements OnInit {
     this.modalStudentname = "";
     this.modalClaxxId = "";
     this.modalRoomId = "";
+    this.modalCardId = "";
     this.modalSrv.create({
       nzTitle: '新建学生',
       nzContent: tpl,
@@ -136,6 +138,7 @@ export class StudentListComponent implements OnInit {
         studentInfo["name"] = this.modalStudentname;
         studentInfo["classId"] = this.modalClaxxId;
         studentInfo["roomId"] = this.modalRoomId;
+        studentInfo["faceSysUserId"] = this.modalCardId;
         this.studentService.saveStudent(studentInfo)
           .subscribe(
             resp => {
@@ -156,7 +159,7 @@ export class StudentListComponent implements OnInit {
     this.modalStudentname = student.name;
     this.modalClaxxId = student.classId;
     this.modalRoomId = student.roomId;
-
+    this.modalCardId = student.faceSysUserId;;
     this.modalSrv.create({
       nzTitle: '编辑班级',
       nzContent: tpl,
@@ -167,6 +170,7 @@ export class StudentListComponent implements OnInit {
         studentInfo["name"] = this.modalStudentname;
         studentInfo["classId"] = this.modalClaxxId;
         studentInfo["roomId"] = this.modalRoomId;
+        studentInfo["faceSysUserId"] = this.modalCardId;
         this.studentService.editStudent(student.id, studentInfo)
           .subscribe(
             resp => {
