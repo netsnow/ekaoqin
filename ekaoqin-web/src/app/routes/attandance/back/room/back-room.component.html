@@ -11,9 +11,9 @@
     <se label="其它选项">
       <div class="ant-form ant-form-inline">
         <nz-form-item>
-          <nz-form-label nzFor="rate">日期</nz-form-label>
+          <nz-form-label nzFor="Date">日期</nz-form-label>
           <nz-form-control>
-            <input nz-input [(ngModel)]="q.no" name="no" placeholder="请输入" id="no">
+            <nz-date-picker (nzOnOpenChange)="dateChange()" [(ngModel)]="selectDate" [ngModelOptions]="{standalone: true}"></nz-date-picker>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -25,18 +25,18 @@
     <nz-list-item>
       <nz-card nzHoverable >
         
-        <nz-card-meta [nzTitle]="item.title" [nzAvatar]="nzAvatar">
+        <nz-card-meta [nzTitle]="item.roomName" [nzAvatar]="nzAvatar">
         </nz-card-meta>
         <div class="card-info d-flex">
           <div>
             <p>宿舍人数</p>
-            <p>{{item.activeUser}}
+            <p>{{item.count}}
               <em class="wan">人</em>
             </p>
           </div>
           <div>
             <p>归寝人数</p>
-            <p (click)="showDetail()">{{item.activeUser}}
+            <p (click)="showDetail()">{{item.backCount}}
               <em class="wan">人</em>
             </p>
           </div>

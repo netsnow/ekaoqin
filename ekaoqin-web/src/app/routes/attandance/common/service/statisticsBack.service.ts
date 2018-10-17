@@ -14,11 +14,14 @@ export class StatisticsBackService {
         private http: HttpClient,
     ) { }
     getClaxxByDate(date) {
-        return this.http.get(this.url + "/" + date + "/claxx")
+        var selectDate = date.toJSON().substring(0,10)
+        return this.http.get(this.url + "/" + selectDate + "/claxx")
     }
     getRoomByDate(date) {
-        return this.http.get(this.url + "/" + date + "/room")
+        var selectDate = date.toJSON().substring(0,10)
+        return this.http.get(this.url + "/" + selectDate + "/room")
     }
+
 
 
 }

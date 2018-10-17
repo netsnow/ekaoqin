@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { backData } from '../back-mockdata';
+import { StatisticsBackService } from '../../common/service/statisticsBack.service';
 
 @Component({
   selector: 'app-back-room',
@@ -9,13 +10,15 @@ import { backData } from '../back-mockdata';
   styleUrls: ['./back-room.component.less'],
 })
 export class BackRoomComponent implements OnInit {
+  selectDate =  new Date();
+
   q: any = {
     ps: 8,
     categories: [],
     owners: ['zxx'],
   };
   data = backData;
-  list: any[] = [];
+  list: any = {};
 
   loading = false;
 
@@ -39,14 +42,34 @@ export class BackRoomComponent implements OnInit {
   }
   // endregion
 
-  constructor(private http: _HttpClient, public msg: NzMessageService) {}
+  constructor(
+    private http: _HttpClient,
+    public msg: NzMessageService,
+    private statisticsBackService: StatisticsBackService,
+  ) { }
 
   ngOnInit() {
+    this.selectDate = new Date();
     this.getData();
   }
 
   getData() {
-    this.list = this.data;
+    this.loading = true;
+    this.statisticsBackService.getRoomByDate(this.selectDate).subscribe(
+      resp => {
+        this.loading = false;
+        this.list = resp;
+        //console.log(resp);
+      },
+      error => {
+        this.loading = false;
+        console.log(error);
+      }
+    )
+
+  }
+  dateChange() {
+    this.getData();
   }
 
   showDetail(){

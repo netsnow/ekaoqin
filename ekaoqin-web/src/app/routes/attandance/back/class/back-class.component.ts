@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { backData } from '../back-mockdata';
+import { StatisticsBackService } from '../../common/service/statisticsBack.service';
 
 @Component({
   selector: 'app-back-class',
@@ -9,13 +10,15 @@ import { backData } from '../back-mockdata';
   styleUrls: ['./back-class.component.less'],
 })
 export class BackClassComponent implements OnInit {
+  selectDate =  new Date();
+
   q: any = {
     ps: 8,
     categories: [],
     owners: ['zxx'],
   };
   data = backData;
-  list: any[] = [];
+  list: any = {};
 
   loading = false;
 
@@ -37,16 +40,37 @@ export class BackClassComponent implements OnInit {
   }
   // endregion
 
-  constructor(private http: _HttpClient, public msg: NzMessageService) { }
+  constructor(
+    private http: _HttpClient,
+    public msg: NzMessageService,
+    private statisticsBackService: StatisticsBackService,
+  ) { }
 
   ngOnInit() {
+
+    this.selectDate = new Date();
+    //console.log(this.selectDate);
     this.getData();
   }
 
   getData() {
-    this.list = this.data;
-  }
+    this.loading = true;
+    this.statisticsBackService.getClaxxByDate(this.selectDate).subscribe(
+      resp => {
+        this.loading = false;
+        this.list = resp;
+        //console.log(resp);
+      },
+      error => {
+        this.loading = false;
+        console.log(error);
+      }
+    )
 
+  }
+  dateChange() {
+    this.getData();
+  }
   showDetail() {
     window.location.href = "/#/attandance/back/detail";
   }
