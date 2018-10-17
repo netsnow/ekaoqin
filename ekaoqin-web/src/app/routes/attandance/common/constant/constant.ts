@@ -11,5 +11,6 @@ export var restUrl = {
     claxx: 'claxx',
     room:'room',
     student:'student',
+    statisticsBack:'statisticsBack',
     
 }
