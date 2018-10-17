@@ -17,5 +17,4 @@ public interface StudentService {
 
     Boolean deleteStudentById(Long studentId);
 
-    Boolean updateStatusByMq() throws IOException;
 }

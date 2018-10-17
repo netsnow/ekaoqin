@@ -20,8 +20,6 @@ import java.util.*;
 @Service("studentService")
 public class StudentServiceImpl implements StudentService {
 
-    private final static String QUEUE_NAME = "amq_sync_xhz";
-
     @Autowired
     private StudentRepository studentRepository;
 
@@ -74,53 +72,5 @@ public class StudentServiceImpl implements StudentService {
         return true;
     }
 
-    @Override
-    public Boolean updateStatusByMq() throws IOException {
-
-        Connection connection = initMq();
-        final Channel channel = connection.createChannel();
-        Map<String, Object> arguments = new HashMap<String, Object>();
-        arguments.put("x-expires", 86400000);
-        channel.queueDeclare(QUEUE_NAME, true, false, false, arguments);
-        channel.basicQos(1);
-        Consumer consumer = new DefaultConsumer(channel) {
-            @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) {
-                try {
-                    String message = new String(body, "UTF-8");
-                    System.out.println(message);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        channel.basicAck(envelope.getDeliveryTag(), false);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-        channel.basicConsume(QUEUE_NAME, false, consumer);
-        return null;
-    }
-
-    public static Connection initMq() {
-        ConnectionFactory factory = null;
-        Connection connection = null;
-        try {
-            factory = new ConnectionFactory();
-            //ip
-            factory.setHost("10.30.23.252");
-            factory.setPort(5673);// MQ端口
-            factory.setUsername("admin");// MQ用户名
-            factory.setPassword("123456");// MQ密码
-
-            connection = factory.newConnection();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return connection;
-    }
 
 }
