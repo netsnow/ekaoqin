@@ -87,7 +87,7 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
         Calendar rightNow = Calendar.getInstance();
         rightNow.add(Calendar.MONTH, -3);//日期减3个月
         Date lastMonth = rightNow.getTime();
-        statisticsBackRepository.deleteBeforeDate(lastMonth);
+        statisticsBackRepository.deleteByDateLessThan(lastMonth);
 
         //添加当日数据
         List<StudentRespond> students = studentService.getAllStudents();
