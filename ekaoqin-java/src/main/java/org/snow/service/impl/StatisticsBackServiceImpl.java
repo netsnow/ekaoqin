@@ -4,6 +4,7 @@ package org.snow.service.impl;
 import org.snow.dao.jpa.ClaxxRepository;
 import org.snow.dao.jpa.RoomRepository;
 import org.snow.dao.jpa.StatisticsBackRepository;
+import org.snow.dao.mybatis.mapper.StatisticsBackMapper;
 import org.snow.form.StatisticsBackClassRespond;
 import org.snow.form.StatisticsBackRoomRespond;
 import org.snow.form.StudentRespond;
@@ -37,6 +38,9 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private StatisticsBackMapper statisticsBackMapper;
+
     @Override
     public List<StatisticsBack> getAllStatisticsBacks() {
 
@@ -67,12 +71,12 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
 
     @Override
     public List<StatisticsBackClassRespond> getStatisticsBacksClassByDate(Date date) {
-        return statisticsBackRepository.getClassByDate(date);
+        return statisticsBackMapper.getClassByDate(date);
     }
 
     @Override
     public List<StatisticsBackRoomRespond> getStatisticsBacksRoomByDate(Date date) {
-        return statisticsBackRepository.getRoomByDate(date);
+        return statisticsBackMapper.getRoomByDate(date);
     }
 
     @Override

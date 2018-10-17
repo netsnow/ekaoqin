@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.snow.dao.mybatis.mapper.StatisticsBackMapper" >
+    <resultMap id="ClaxxResultMap" type="org.snow.form.StatisticsBackClassRespond" >
+    </resultMap>
+    <resultMap id="RoomResultMap" type="org.snow.form.StatisticsBackRoomRespond" >
+    </resultMap>
+
+    <select id="getClassByDate" resultMap="ClaxxResultMap">
+        select class_name as claxxName, count(1) as count , count(status = true or null) as backCount
+        from statistics_back
+        where DATE_FORMAT(date,'%Y-%m-%d') = DATE_FORMAT(#{date},'%Y-%m-%d' )
+        group by class_name
+    </select>
+    <select id="getRoomByDate" resultMap="RoomResultMap">
+        select room_name as roomName, count(1) as count , count(status = true or null) as backCount
+        from statistics_back
+        where DATE_FORMAT(date,'%Y-%m-%d') = DATE_FORMAT(#{date},'%Y-%m-%d' )
+        group by room_name
+    </select>
+</mapper>

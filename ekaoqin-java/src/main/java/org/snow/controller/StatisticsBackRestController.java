@@ -1,10 +1,13 @@
 package org.snow.controller;
 
+import org.snow.form.StatisticsBackClassRespond;
+import org.snow.form.StatisticsBackRoomRespond;
 import org.snow.model.business.EntryLog;
 import org.snow.model.business.StatisticsBack;
 import org.snow.service.EntryLogService;
 import org.snow.service.StatisticsBackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +32,19 @@ public class StatisticsBackRestController {
         @PathVariable Date date
     ) {
         return statisticsBackService.getStatisticsBacksByDate(date);
+    }
+
+    @RequestMapping(path = "/statisticsBack/{date}/claxx", method = RequestMethod.GET)
+    public List<StatisticsBackClassRespond> getStatisticsBacksClaxxByDate(
+        @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd")Date date
+    ) {
+        return statisticsBackService.getStatisticsBacksClassByDate(date);
+    }
+    @RequestMapping(path = "/statisticsBack/{date}/room", method = RequestMethod.GET)
+    public List<StatisticsBackRoomRespond> getStatisticsBacksRoomByDate(
+        @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd")Date date
+    ) {
+        return statisticsBackService.getStatisticsBacksRoomByDate(date);
     }
 
 
