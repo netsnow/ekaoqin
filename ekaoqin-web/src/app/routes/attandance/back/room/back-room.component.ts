@@ -72,7 +72,10 @@ export class BackRoomComponent implements OnInit {
     this.getData();
   }
 
-  showDetail(){
-    window.location.href="/#/attandance/back/detail";
+  showDetail(roomName) {
+    localStorage.setItem("detailType", "room");
+    localStorage.setItem("detailRoom", roomName);
+    localStorage.setItem("detailDate", this.selectDate.toJSON().substring(0, 10));
+    window.location.href = "#/attandance/back/detail";
   }
 }

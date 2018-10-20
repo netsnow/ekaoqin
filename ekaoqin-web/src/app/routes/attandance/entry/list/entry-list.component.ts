@@ -33,7 +33,7 @@ export class EntryListComponent implements OnInit {
     { title: '学生班级', index: 'claxxName' },
     { title: '学生宿舍', index: 'roomName' },
     { title: '拍摄机位', index: 'cameraId' },
-    { title: '拍摄时间', index: 'dateTime' },
+    { title: '拍摄时间', index: 'createTime' },
   ];
   selectedRows: STData[] = [];
   description = '';

@@ -4,12 +4,17 @@ import { _HttpClient } from '@delon/theme';
 import { tap, map } from 'rxjs/operators';
 import { STComponent, STColumn, STData } from '@delon/abc';
 import { detailData } from './back-detail-mockdata';
+import { StatisticsBackService } from '../../common/service/statisticsBack.service';
 
 @Component({
   selector: 'app-back-detail',
   templateUrl: './back-detail.component.html',
 })
 export class BackDetailComponent implements OnInit {
+  detailType = "";
+  selectDate = "";
+  selectClaxxName = "";
+  selectRoomName = "";
   users = detailData;
   q: any = {
     pi: 1,
@@ -18,7 +23,7 @@ export class BackDetailComponent implements OnInit {
     status: null,
     statusList: [],
   };
-  data: any[] = [];
+  list: any = {};
   loading = false;
   status = [
     { index: 0, text: '未归', value: false, type: 'error', checked: false },
@@ -42,19 +47,10 @@ export class BackDetailComponent implements OnInit {
   @ViewChild('st')
   st: STComponent;
   columns: STColumn[] = [
-    { title: '', index: 'key', type: 'checkbox' },
-    { title: '学生姓名', index: 'fullname' },
-    { title: '班级', index: 'class' },
-    { title: '宿舍', index: 'room' },
-    {
-      title: '归寝切换',
-      buttons: [
-        {
-          text: '归寝',
-          click: (item: any) => this.msg.success(`归寝${item.id}`),
-        },
-      ],
-    },
+    { title: '学生姓名', index: 'userName' },
+    { title: '班级', index: 'className' },
+    { title: '宿舍', index: 'roomName' },
+    { title: '归寝状态', index: 'status' },
   ];
   selectedRows: STData[] = [];
   description = '';
@@ -65,14 +61,37 @@ export class BackDetailComponent implements OnInit {
     private http: _HttpClient,
     public msg: NzMessageService,
     private modalSrv: NzModalService,
+    private statisticsBackService: StatisticsBackService,
   ) { }
 
   ngOnInit() {
+    this.detailType = localStorage.getItem("detailType");
+    if (localStorage.getItem("detailType") == "claxx") {
+      this.selectDate = localStorage.getItem("detailDate");
+      this.selectClaxxName = localStorage.getItem("detailClaxx");
+    } else if(localStorage.getItem("detailType") == "room"){
+      this.selectDate = localStorage.getItem("detailDate");
+      this.selectRoomName = localStorage.getItem("detailRoom");
+    }
     this.getData();
   }
 
   getData() {
-    this.data = this.users;
+    this.loading = true;
+    this.statisticsBackService.getAllByDate(this.selectDate).subscribe(
+      resp => {
+        this.loading = false;
+        this.list = resp;
+        
+        
+        //console.log(resp);
+      },
+      error => {
+        this.loading = false;
+        console.log(error);
+      }
+    )
+
   }
 
   checkboxChange(list: STData[]) {
