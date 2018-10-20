@@ -130,7 +130,7 @@ export class UserListComponent implements OnInit {
             },
             error => {
               this.loading = false;
-              this.msg.error("保存失败！");
+              this.msg.error(error.error.message);
               console.log(error);
             }
           );
@@ -164,7 +164,7 @@ export class UserListComponent implements OnInit {
             },
             error => {
               this.loading = false;
-              this.msg.error("保存失败！");
+              this.msg.error(error.error.message);
               console.log(error);
             }
           );

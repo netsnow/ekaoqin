@@ -1,5 +1,6 @@
 package org.snow.controller;
 
+import org.snow.form.EntryLogRespond;
 import org.snow.model.business.EntryLog;
 import org.snow.model.business.Room;
 import org.snow.service.EntryLogService;
@@ -16,7 +17,7 @@ public class EntryLogRestController {
     private EntryLogService entryLogService;
 
     @RequestMapping(path = "/entryLog", method = RequestMethod.GET)
-    public List<EntryLog> getAllEntryLogs() {
+    public List<EntryLogRespond> getAllEntryLogs() {
         return entryLogService.getAllEntryLogs();
     }
 

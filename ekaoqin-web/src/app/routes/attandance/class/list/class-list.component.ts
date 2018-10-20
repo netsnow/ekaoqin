@@ -48,6 +48,7 @@ export class ClassListComponent implements OnInit {
     public msg: NzMessageService,
     private modalSrv: NzModalService,
     private classService: ClaxxService,
+
   ) { }
 
   ngOnInit() {
@@ -60,12 +61,13 @@ export class ClassListComponent implements OnInit {
       resp => {
         this.loading = false;
         this.data = resp;
-        console.log(resp);
+        //console.log(resp);
 
       },
       error => {
         this.loading = false;
-        console.log(error);
+        this.msg.error(error.error.message);
+        //console.log(error);
       }
     )
   }
@@ -80,11 +82,11 @@ export class ClassListComponent implements OnInit {
 
   remove(id) {
     this.classService.remove(id).subscribe(
-      resp=>{
+      resp => {
         this.msg.success("已删除！");
         this.getData();
       },
-      error=>{
+      error => {
         this.msg.error("删除失败！");
         console.log(error)
       }
@@ -110,7 +112,7 @@ export class ClassListComponent implements OnInit {
             },
             error => {
               this.loading = false;
-              this.msg.error("保存失败！");
+              this.msg.error(error.error.message);
               console.log(error);
             }
           );
@@ -139,7 +141,7 @@ export class ClassListComponent implements OnInit {
             },
             error => {
               this.loading = false;
-              this.msg.error("保存失败！");
+              this.msg.error(error.error.message);
               console.log(error);
             }
           );
