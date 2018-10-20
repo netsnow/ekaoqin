@@ -68,6 +68,13 @@ export class BackDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (localStorage.getItem("detailType") == "claxx") {
+      console.log(localStorage.getItem("detailClaxx"));
+      console.log(localStorage.getItem("detailDate"));
+    } else if(localStorage.getItem("detailType") == "room"){
+      console.log(localStorage.getItem("detailRoom"));
+      console.log(localStorage.getItem("detailDate"));
+    }
     this.getData();
   }
 

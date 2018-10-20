@@ -10,7 +10,7 @@ import { StatisticsBackService } from '../../common/service/statisticsBack.servi
   styleUrls: ['./back-class.component.less'],
 })
 export class BackClassComponent implements OnInit {
-  selectDate =  new Date();
+  selectDate = new Date();
 
   q: any = {
     ps: 8,
@@ -71,7 +71,10 @@ export class BackClassComponent implements OnInit {
   dateChange() {
     this.getData();
   }
-  showDetail() {
-    window.location.href = "/#/attandance/back/detail";
+  showDetail(claxxName) {
+    localStorage.setItem("detailType", "claxx");
+    localStorage.setItem("detailClaxx", claxxName);
+    localStorage.setItem("detailDate", this.selectDate.toJSON().substring(0, 10));
+    window.location.href = "#/attandance/back/detail";
   }
 }
