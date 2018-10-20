@@ -5,7 +5,11 @@
     </resultMap>
     <resultMap id="RoomResultMap" type="org.snow.form.StatisticsBackRoomRespond" >
     </resultMap>
-
+    <resultMap id="BaseResultMap" type="org.snow.model.business.StatisticsBack" >
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="class_name" property="className" jdbcType="VARCHAR" />
+        <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    </resultMap>
     <select id="getClassByDate" resultMap="ClaxxResultMap">
         select class_name as claxxName, count(1) as count , count(status = true or null) as backCount
         from statistics_back
@@ -17,5 +21,10 @@
         from statistics_back
         where DATE_FORMAT(date,'%Y-%m-%d') = DATE_FORMAT(#{date},'%Y-%m-%d' )
         group by room_name
+    </select>
+    <select id="getAllByDate" resultMap="BaseResultMap">
+        select *
+        from statistics_back
+        where DATE_FORMAT(date,'%Y-%m-%d') = DATE_FORMAT(#{date},'%Y-%m-%d' )
     </select>
 </mapper>

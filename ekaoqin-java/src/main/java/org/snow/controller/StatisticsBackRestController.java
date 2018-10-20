@@ -29,20 +29,21 @@ public class StatisticsBackRestController {
 
     @RequestMapping(path = "/statisticsBack/{date}", method = RequestMethod.GET)
     public List<StatisticsBack> getStatisticsBacksByDate(
-        @PathVariable Date date
+        @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date
     ) {
         return statisticsBackService.getStatisticsBacksByDate(date);
     }
 
     @RequestMapping(path = "/statisticsBack/{date}/claxx", method = RequestMethod.GET)
     public List<StatisticsBackClassRespond> getStatisticsBacksClaxxByDate(
-        @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd")Date date
+        @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date
     ) {
         return statisticsBackService.getStatisticsBacksClassByDate(date);
     }
+
     @RequestMapping(path = "/statisticsBack/{date}/room", method = RequestMethod.GET)
     public List<StatisticsBackRoomRespond> getStatisticsBacksRoomByDate(
-        @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd")Date date
+        @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date
     ) {
         return statisticsBackService.getStatisticsBacksRoomByDate(date);
     }

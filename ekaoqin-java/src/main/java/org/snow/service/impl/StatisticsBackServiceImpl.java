@@ -56,17 +56,7 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
 
     @Override
     public List<StatisticsBack> getStatisticsBacksByDate(Date date) {
-
-        List<StatisticsBack> statisticsBacks = getAllStatisticsBacks();
-        List<StatisticsBack> outList = new ArrayList<StatisticsBack>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        for (int i = 0; i < statisticsBacks.size(); i++) {
-            if (sdf.format(statisticsBacks.get(i).getDate()) == sdf.format(date)) {
-                outList.add(statisticsBacks.get(i));
-            }
-        }
-        return outList;
+        return statisticsBackMapper.getAllByDate(date);
     }
 
     @Override
