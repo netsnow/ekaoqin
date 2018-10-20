@@ -13,6 +13,9 @@ export class StatisticsBackService {
         private msg: NzMessageService,
         private http: HttpClient,
     ) { }
+    getAllByDate(date) {
+        return this.http.get(this.url + "/" + date)
+    }
     getClaxxByDate(date) {
         var selectDate = date.toJSON().substring(0,10)
         return this.http.get(this.url + "/" + selectDate + "/claxx")
