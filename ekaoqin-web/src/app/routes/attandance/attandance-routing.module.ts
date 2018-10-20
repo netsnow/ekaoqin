@@ -38,6 +38,12 @@ const routes: Routes = [
     loadChildren: './back/back.module#BackModule',
     //canActivateChild: [ACLGuard],
     //data: { guard: 'ROLE_ADMIN' }
+  },
+  {
+    path: 'entry',
+    loadChildren: './entry/entry.module#EntryModule',
+    //canActivateChild: [ACLGuard],
+    //data: { guard: 'ROLE_ADMIN' }
   }
 ];
 
