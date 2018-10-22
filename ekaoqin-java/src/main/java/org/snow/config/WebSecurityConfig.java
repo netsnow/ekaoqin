@@ -129,7 +129,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/webjars/**",//swagger2
                 "/v2/api-docs",//swagger2
                 "/notice",//demo controller
-                "/notice/*"//demo controller
+                "/notice/*",//demo controller
+                "/entryLog/*/*"
+
             );
     }
 }

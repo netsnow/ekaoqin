@@ -24,6 +24,9 @@ public class UserIDAuditorBean implements AuditorAware<String> {
                 userId = (String) authentication.getPrincipal();
             }
         }
+        if(userId == null){
+            userId = "batch";
+        }
         Optional<String> rtn = Optional.of(new String(userId));
         return rtn;
 
