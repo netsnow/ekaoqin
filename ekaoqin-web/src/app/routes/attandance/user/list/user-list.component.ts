@@ -108,7 +108,7 @@ export class UserListComponent implements OnInit {
     this.modalFullname = '';
     this.modalUserType = 'ROLE_USER';
     this.modalSrv.create({
-      nzTitle: '新建用户',
+      nzTitle: '新建用户（初始密码为：111111）',
       nzContent: tpl,
       nzOnOk: () => {
         this.loading = true;
