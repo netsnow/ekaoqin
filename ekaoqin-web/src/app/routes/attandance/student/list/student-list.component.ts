@@ -40,7 +40,7 @@ export class StudentListComponent implements OnInit {
     { title: '学生名', index: 'name' },
     { title: '班级', index: 'claxxName' },
     { title: '宿舍', index: 'roomName' },
-    { title: '归寝状态', index: 'backStatus' },
+    { title: '归寝状态', index: 'backStatus', type: 'yn' },
     {
       title: '操作',
       render: 'operation',

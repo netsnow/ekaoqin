@@ -53,7 +53,9 @@
   </div>
   <st #st [columns]="columns" [data]="data" [loading]="loading" (checkboxChange)="checkboxChange($event)" [req]="{params: params}">
     <ng-template st-row="usertype" let-i>
-      <span>{{i.authorities[0]['name']}}
+      <span *ngIf="i.authorities[0]['name'] === 'ROLE_ADMIN'">管理员
+      </span>
+      <span *ngIf="i.authorities[0]['name'] === 'ROLE_USER'">教师
       </span>
     </ng-template>
     <ng-template st-row="operation" let-i >
