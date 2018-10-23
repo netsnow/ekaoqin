@@ -47,3 +47,4 @@ yarn-error.log
 Thumbs.db
 
 ekaoqin-java/ekaoqin.iml
+ekaoqin-java/src/main/resources/static
