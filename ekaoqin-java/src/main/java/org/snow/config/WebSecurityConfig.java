@@ -109,7 +109,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/favicon.ico",
                 "/**/*.html",
                 "/**/*.css",
-                "/**/*.js"
+                "/**/*.js",
+                "/assets/tmp/app-data.json",
+                "/assets/tmp/i18n/zh-CN.json",
+                "/assets/**",
+                "/*.woff2",
+                "/*.woff",
+                "/*.ttf"
             )
             
             //OPTIONS预请求全部放行
