@@ -2,6 +2,7 @@
 
 # compiled output
 ekaoqin-java/target
+ekaoqin-web/dist
 /tmp
 /out-tsc
 
