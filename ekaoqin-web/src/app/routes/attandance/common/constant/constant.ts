@@ -12,6 +12,7 @@ export var restUrl = {
     room:'room',
     student:'student',
     statisticsBack:'statisticsBack',
-    entry:'entryLog'
+    entry:'entryLog',
+    discipline:'discipline'
     
 }

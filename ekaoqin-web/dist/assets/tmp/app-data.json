@@ -16,6 +16,18 @@
       "hideInBreadcrumb": true,
       "children": [
         {
+          "text": "归寝统计（宿舍单位）",
+          "link": "/attandance/back/room",
+          "icon": "icon-user",
+          "i18n": "back_mangement_room"
+        },
+        {
+          "text": "归寝统计（班级单位）",
+          "link": "/attandance/back/class",
+          "icon": "icon-user",
+          "i18n": "back_mangement_class"
+        },
+        {
           "text": "用户管理",
           "link": "/attandance/user/list",
           "icon": "icon-user",
@@ -34,22 +46,22 @@
           "i18n": "room_mangement"
         },
         {
+          "text": "学生管理",
+          "link": "/attandance/student/list",
+          "icon": "icon-user",
+          "i18n": "student_mangement"
+        },
+        {
           "text": "违纪管理",
           "link": "/attandance/discipline/list",
           "icon": "icon-user",
           "i18n": "discipline_mangement"
         },
         {
-          "text": "归寝统计（宿舍单位）",
-          "link": "/attandance/back/room",
+          "text": "出入记录",
+          "link": "/attandance/entry/list",
           "icon": "icon-user",
-          "i18n": "back_mangement_room"
-        },
-        {
-          "text": "归寝统计（班级单位）",
-          "link": "/attandance/back/class",
-          "icon": "icon-user",
-          "i18n": "back_mangement_class"
+          "i18n": "entry_mangement"
         }
       ]
     }

@@ -72,7 +72,9 @@
   "user_mangement": "用户管理",
   "class_mangement": "班级管理",
   "room_mangement": "宿舍管理",
+  "student_mangement": "学生管理",
   "discipline_mangement": "违纪管理",
   "back_mangement_room": "归寝统计（宿舍单位）",
-  "back_mangement_class": "归寝统计（班级单位）"
+  "back_mangement_class": "归寝统计（班级单位）",
+  "entry_mangement": "出入记录"
 }
