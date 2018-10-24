@@ -9,6 +9,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.UnsupportedEncodingException;
+
 @Component
 public class MqLinstener {
 
@@ -16,12 +18,13 @@ public class MqLinstener {
     private EntryLogService entryLogService;
 
     @RabbitListener(queues = "#{myQueue.name}")    //监听器监听指定的Queue
-    public void addEntryLog(String entryMessage) {
+    public void addEntryLog(byte[] body) throws UnsupportedEncodingException {
+        String entryMessage = new String(body, "UTF-8");
         System.out.println("Receive:" + entryMessage);
         JSONObject entryMessageJson = JSONObject.parseObject(entryMessage);
         //当取得数据的类型为普通抓拍记录（0）时
         if(entryMessageJson.containsKey("dataType")){
-            if (entryMessageJson.get("dataType").equals("0")) {
+            if (entryMessageJson.get("dataType").equals(0)) {
                 EntryLog entryLog = new EntryLog();
                 if(entryMessageJson.containsKey("cardId")){
                     entryLog.setFaceSysUserId(entryMessageJson.get("cardId").toString());

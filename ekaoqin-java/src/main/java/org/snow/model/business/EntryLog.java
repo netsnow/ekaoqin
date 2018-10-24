@@ -13,8 +13,7 @@ public class EntryLog extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "face_sys_user_id", length = 100, unique = false)
-    @Size(min = 1, max = 100)
+    @Column(name = "face_sys_user_id")
     private String faceSysUserId;
 
     @Column(name = "camera_id")
