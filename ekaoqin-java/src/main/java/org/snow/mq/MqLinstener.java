@@ -31,8 +31,8 @@ public class MqLinstener {
                 }else{
                     entryLog.setFaceSysUserId("未知");
                 }
-                if(entryMessageJson.containsKey("cameraInfo")){
-                    entryLog.setCameraId(entryMessageJson.get("cameraInfo").toString());
+                if(entryMessageJson.containsKey("roadCaption")){
+                    entryLog.setCameraId(entryMessageJson.get("roadCaption").toString());
                 }else{
                     entryLog.setCameraId("未知");
                 }
