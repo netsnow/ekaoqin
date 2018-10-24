@@ -62,7 +62,12 @@ public class EntryLogServiceImpl implements EntryLogService {
     @Override
     @Transactional
     public Boolean addEntryLog(EntryLog entryLog) {
-        entryLogRepository.save(entryLog);
+        if(entryLog.getFaceSysUserId().equals("") || entryLog.getFaceSysUserId()==null){
+            entryLog.setFaceSysUserId("陌生人");
+        }else{
+            entryLogRepository.save(entryLog);
+        }
+
         List<Student> students = studentRepository.findByFaceSysUserId(entryLog.getFaceSysUserId());
         if(students.size() > 0){
             if(entryLog.getCameraId().equals("宿舍入口")){

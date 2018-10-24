@@ -29,12 +29,13 @@ public class MqLinstener {
                 if(entryMessageJson.containsKey("cardId")){
                     entryLog.setFaceSysUserId(entryMessageJson.get("cardId").toString());
                 }else{
-                    entryLog.setFaceSysUserId("未知");
+                    entryLog.setFaceSysUserId("");
                 }
                 if(entryMessageJson.containsKey("roadCaption")){
-                    entryLog.setCameraId(entryMessageJson.get("roadCaption").toString());
+                    String result = java.net.URLDecoder.decode(entryMessageJson.get("roadCaption").toString(), "UTF-8");
+                    entryLog.setCameraId(result);
                 }else{
-                    entryLog.setCameraId("未知");
+                    entryLog.setCameraId("");
                 }
 
                 entryLogService.addEntryLog(entryLog);
