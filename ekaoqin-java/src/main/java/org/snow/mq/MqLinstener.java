@@ -3,6 +3,8 @@ package org.snow.mq;
 import com.alibaba.fastjson.JSONObject;
 import org.snow.model.business.EntryLog;
 import org.snow.service.EntryLogService;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +15,7 @@ public class MqLinstener {
     @Autowired
     private EntryLogService entryLogService;
 
-    @RabbitListener(queues = "amq_sync_xhz")    //监听器监听指定的Queue
+    @RabbitListener(queues = "#{myQueue.name}")    //监听器监听指定的Queue
     public void addEntryLog(String entryMessage) {
         System.out.println("Receive:" + entryMessage);
         JSONObject entryMessageJson = JSONObject.parseObject(entryMessage);
