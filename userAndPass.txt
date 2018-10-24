@@ -1,0 +1,13 @@
+tv£º
+1088393834
+6u19tx
+
+tv£º
+administrator
+Admin123!@#
+
+rabbitmq
+192.168.35.10
+5673
+admin
+123456
