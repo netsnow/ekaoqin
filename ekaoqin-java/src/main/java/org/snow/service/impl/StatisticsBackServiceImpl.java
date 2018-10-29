@@ -95,4 +95,28 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
         return true;
     }
 
+    @Override
+    public List<StatisticsBack> searchStatisticsBacks(StatisticsBack statisticsBack) {
+        Iterable<StatisticsBack> geted = statisticsBackMapper.getAllByDate(statisticsBack.getDate());;
+        List<StatisticsBack> list = new ArrayList<StatisticsBack>();
+        geted.forEach(single -> {
+            if (single.getIsDeleted() == null || single.getIsDeleted() == false) {
+                if(statisticsBack.getClassName() != null && statisticsBack.getRoomName() != null){
+                    if (single.getClassName().equals(statisticsBack.getClassName()) && single.getRoomName().equals(statisticsBack.getRoomName())) {
+                        list.add(single);
+                    }
+                }else if (statisticsBack.getClassName() == null && statisticsBack.getRoomName() != null){
+                    if(single.getRoomName().equals(statisticsBack.getRoomName())){
+                        list.add(single);
+                    }
+                }else if (statisticsBack.getClassName() != null && statisticsBack.getRoomName() == null){
+                    if(single.getClassName().equals(statisticsBack.getClassName())){
+                        list.add(single);
+                    }
+                }
+            }
+        });
+        return list;
+    }
+
 }

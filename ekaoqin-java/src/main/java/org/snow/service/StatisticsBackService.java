@@ -19,4 +19,6 @@ public interface StatisticsBackService {
 
     Boolean addStatisticsBack();
 
+    List<StatisticsBack> searchStatisticsBacks(StatisticsBack statisticsBack);
+
 }

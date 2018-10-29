@@ -8,10 +8,7 @@ import org.snow.service.EntryLogService;
 import org.snow.service.StatisticsBackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -48,5 +45,10 @@ public class StatisticsBackRestController {
         return statisticsBackService.getStatisticsBacksRoomByDate(date);
     }
 
-
+    @RequestMapping(path = "/statisticsBack/search", method = RequestMethod.POST)
+    public List<StatisticsBack> searchStatisticsBacks(
+        @RequestBody StatisticsBack statisticsBack
+    ) {
+        return statisticsBackService.searchStatisticsBacks(statisticsBack);
+    }
 }
