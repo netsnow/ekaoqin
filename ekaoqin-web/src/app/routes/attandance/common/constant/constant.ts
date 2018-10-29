@@ -1,6 +1,6 @@
 export var restUrl = {
-    //root:'http://localhost:8080/',
-    root:'http://192.168.3.30:8080/',
+    root:'http://localhost:8080/',
+    //root:'http://192.168.3.30:8080/',
     auth: 'auth',
     me: 'me',
     meRoles: 'me/roles',

@@ -66,18 +66,18 @@ public class EntryLogServiceImpl implements EntryLogService {
             entryLog.setFaceSysUserId("陌生人");
         }else{
             entryLogRepository.save(entryLog);
+            List<Student> students = studentRepository.findByFaceSysUserId(entryLog.getFaceSysUserId());
+            if(students.size() > 0){
+                if(entryLog.getCameraId().equals("宿舍入口")){
+                    students.get(0).setBackStatus(true);
+                }
+                if(entryLog.getCameraId().equals("宿舍出口")){
+                    students.get(0).setBackStatus(false);
+                }
+                studentRepository.save(students.get(0));
+            }
         }
 
-        List<Student> students = studentRepository.findByFaceSysUserId(entryLog.getFaceSysUserId());
-        if(students.size() > 0){
-            if(entryLog.getCameraId().equals("宿舍入口")){
-                students.get(0).setBackStatus(true);
-            }
-            if(entryLog.getCameraId().equals("宿舍出口")){
-                students.get(0).setBackStatus(false);
-            }
-            studentRepository.save(students.get(0));
-        }
 
         return true;
     }
