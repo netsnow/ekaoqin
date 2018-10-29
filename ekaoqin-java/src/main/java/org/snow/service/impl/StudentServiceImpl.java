@@ -5,6 +5,7 @@ import com.rabbitmq.client.*;
 import org.snow.dao.jpa.ClaxxRepository;
 import org.snow.dao.jpa.RoomRepository;
 import org.snow.dao.jpa.StudentRepository;
+import org.snow.dao.mybatis.mapper.StudentMapper;
 import org.snow.form.StudentRespond;
 import org.snow.model.business.Student;
 
@@ -22,6 +23,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Autowired
     private RoomRepository roomRepository;
@@ -70,6 +74,26 @@ public class StudentServiceImpl implements StudentService {
         student.get().setIsDeleted(true);
         studentRepository.save(student.get());
         return true;
+    }
+
+    @Override
+    public List<StudentRespond> searchStudents(Student student) {
+        Iterable<Student> geted = studentMapper.searchStudents(student);
+        List<StudentRespond> list = new ArrayList<StudentRespond>();
+        geted.forEach(single -> {
+            if (single.getIsDeleted() == null || single.getIsDeleted() == false) {
+                StudentRespond studentRespond = new StudentRespond();
+                BeanUtils.copyProperties(single, studentRespond);
+                if (single.getClassId() != null) {
+                    studentRespond.setClaxxName(claxxRepository.findById(single.getClassId()).get().getName());
+                }
+                if (single.getRoomId() != null) {
+                    studentRespond.setRoomName(roomRepository.findById(single.getRoomId()).get().getName());
+                }
+                list.add(studentRespond);
+            }
+        });
+        return list;
     }
 
 

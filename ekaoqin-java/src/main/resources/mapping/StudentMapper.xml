@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.snow.dao.mybatis.mapper.StudentMapper" >
+    <resultMap id="BaseResultMap" type="org.snow.model.business.Student" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="room_id" property="roomId" jdbcType="BIGINT" />
+        <result column="class_id" property="classId" jdbcType="BIGINT" />
+        <result column="face_sys_user_id" property="faceSysUserId" jdbcType="VARCHAR" />
+        <result column="back_status" property="backStatus" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id,name,room_id,class_id,face_sys_user_id,back_status
+    </sql>
+
+    <select id="searchStudents" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from student
+        <where>
+            <if test="student.name != null">
+                name like "%"#{student.name}"%"
+            </if>
+            <if test="student.roomId != null">
+                and room_id = #{student.roomId}
+            </if>
+            <if test="student.classId != null">
+                and class_id = #{student.classId}
+            </if>
+            <if test="student.backStatus != null">
+                and back_status = #{student.backStatus}
+            </if>
+        </where>
+    </select>
+</mapper>

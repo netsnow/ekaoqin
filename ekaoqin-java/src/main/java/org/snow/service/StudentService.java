@@ -17,4 +17,6 @@ public interface StudentService {
 
     Boolean deleteStudentById(Long studentId);
 
+    List<StudentRespond> searchStudents(Student student);
+
 }

@@ -42,4 +42,11 @@ public class StudentRestController {
     ) {
         return studentService.deleteStudentById(id);
     }
+
+    @RequestMapping(path = "/student/search", method = RequestMethod.POST)
+    public List<StudentRespond> searchStudents(
+        @RequestBody Student student
+    ) {
+        return studentService.searchStudents(student);
+    }
 }
