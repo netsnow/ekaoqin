@@ -21,4 +21,6 @@ public interface StatisticsBackService {
 
     List<StatisticsBack> searchStatisticsBacks(StatisticsBack statisticsBack);
 
+    Boolean switchStatus(Long id);
+
 }

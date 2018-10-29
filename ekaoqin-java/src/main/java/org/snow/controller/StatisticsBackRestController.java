@@ -51,4 +51,11 @@ public class StatisticsBackRestController {
     ) {
         return statisticsBackService.searchStatisticsBacks(statisticsBack);
     }
+
+    @RequestMapping(path = "/statisticsBack/{id}/switch", method = RequestMethod.PUT)
+    public Boolean switchStatus(
+        @PathVariable  Long id
+    ) {
+        return statisticsBackService.switchStatus(id);
+    }
 }

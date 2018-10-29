@@ -32,7 +32,7 @@ public class Student extends BaseEntity {
     private String img;
 
     @Column(name = "back_status")
-    private boolean backStatus;
+    private boolean backStatus = false;
 
     public Long getId() {
         return id;

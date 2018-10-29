@@ -33,7 +33,7 @@ public class StatisticsBack extends BaseEntity {
     private String roomName;
 
     @Column(name = "status")
-    private boolean status;
+    private boolean status = false;
 
     public Long getId() {
         return id;

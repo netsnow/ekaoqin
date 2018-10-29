@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service("statisticsBackService")
 public class StatisticsBackServiceImpl implements StatisticsBackService {
@@ -117,6 +114,22 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
             }
         });
         return list;
+    }
+
+    @Override
+    public Boolean switchStatus(Long id) {
+        Optional<StatisticsBack> statisticsBack = statisticsBackRepository.findById(id);
+        if(statisticsBack.isPresent()){
+
+            if(statisticsBack.get().isStatus()){
+                statisticsBack.get().setStatus(false);
+            }else{
+                statisticsBack.get().setStatus(true);
+            }
+
+            statisticsBackRepository.save(statisticsBack.get());
+        }
+        return true;
     }
 
 }
