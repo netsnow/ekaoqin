@@ -2,6 +2,7 @@ package org.snow.service.impl;
 
 
 import org.snow.dao.jpa.RoomRepository;
+import org.snow.dao.mybatis.mapper.RoomMapper;
 import org.snow.model.business.Room;
 import org.snow.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class RoomServiceImpl implements RoomService {
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private RoomMapper roomMapper;
 
     @Override
     public List<Room> getAllRooms() {
@@ -49,5 +53,10 @@ public class RoomServiceImpl implements RoomService {
         room.get().setIsDeleted(true);
         roomRepository.save(room.get());
         return true;
+    }
+
+    @Override
+    public List<Room> searchRooms(Room room) {
+        return roomMapper.searchRooms(room);
     }
 }

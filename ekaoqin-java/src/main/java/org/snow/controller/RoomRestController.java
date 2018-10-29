@@ -41,4 +41,11 @@ public class RoomRestController {
     ) {
         return roomService.deleteRoomById(id);
     }
+    @RequestMapping(path = "/room/search", method = RequestMethod.POST)
+    public List<Room> searchRooms(
+        @RequestBody Room room
+    ) {
+        return roomService.searchRooms(room);
+    }
+
 }
