@@ -13,4 +13,6 @@ public interface ClaxxService {
     Boolean updateClaxxById(Long claxxId, Claxx claxx);
 
     Boolean deleteClaxxById(Long claxxId);
+
+    List<Claxx> searchClaxxes(Claxx claxx);
 }

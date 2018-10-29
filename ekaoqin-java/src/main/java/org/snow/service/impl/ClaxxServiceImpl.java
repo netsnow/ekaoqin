@@ -1,6 +1,7 @@
 package org.snow.service.impl;
 
 import org.snow.dao.jpa.ClaxxRepository;
+import org.snow.dao.mybatis.mapper.ClaxxMapper;
 import org.snow.model.business.Claxx;
 import org.snow.service.ClaxxService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class ClaxxServiceImpl implements ClaxxService {
 
     @Autowired
     private ClaxxRepository claxxRepository;
+
+    @Autowired
+    private ClaxxMapper claxxMapper;
 
     @Override
     public List<Claxx> getAllClaxxes() {
@@ -48,5 +52,10 @@ public class ClaxxServiceImpl implements ClaxxService {
         claxx.get().setIsDeleted(true);
         claxxRepository.save(claxx.get());
         return true;
+    }
+
+    @Override
+    public List<Claxx> searchClaxxes(Claxx claxx) {
+        return claxxMapper.searchClaxxes(claxx);
     }
 }

@@ -41,4 +41,12 @@ public class ClaxxRestController {
     ) {
         return claxxService.deleteClaxxById(id);
     }
+
+    @RequestMapping(path = "/claxx/search", method = RequestMethod.POST)
+    public List<Claxx> searchClaxxes(
+        @RequestBody Claxx claxx) {
+
+        return claxxService.searchClaxxes(claxx);
+    }
+
 }
