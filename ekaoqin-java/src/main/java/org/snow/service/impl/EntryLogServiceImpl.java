@@ -75,12 +75,16 @@ public class EntryLogServiceImpl implements EntryLogService {
                 //查找学生所属建筑的入口出口的摄像头，判断学生是否进出。
                 Optional<Room> room = roomRepository.findById(students.get(0).getRoomId());
                 if (room.isPresent()) {
-                    Optional<Building> building = buildingRepository.findById(room.get().getBuildingId());
-                    if (building.isPresent()) {
-                        if (building.get().getEntranceCamera().equals(entryLog.getCameraId())) {
-                            students.get(0).setBackStatus(true);
-                        } else if (building.get().getExitCamera().equals(entryLog.getCameraId())) {
-                            students.get(0).setBackStatus(false);
+                    if (room.get().getBuildingId() != null) {
+                        Optional<Building> building = buildingRepository.findById(room.get().getBuildingId());
+                        if (building.isPresent()) {
+                            if (building.get().getEntranceCamera().equals(entryLog.getCameraId())) {
+                                students.get(0).setBackStatus(true);
+                                studentRepository.save(students.get(0));
+                            } else if (building.get().getExitCamera().equals(entryLog.getCameraId())) {
+                                students.get(0).setBackStatus(false);
+                                studentRepository.save(students.get(0));
+                            }
                         }
                     }
                 }
@@ -91,7 +95,7 @@ public class EntryLogServiceImpl implements EntryLogService {
                 //if(entryLog.getCameraId().equals("宿舍出口")){
                 //    students.get(0).setBackStatus(false);
                 //}
-                studentRepository.save(students.get(0));
+
             }
         }
 
