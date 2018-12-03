@@ -96,5 +96,10 @@ public class StudentServiceImpl implements StudentService {
         return list;
     }
 
+    @Override
+    public List<StudentRespond> searchFuzzyStudents(String key) {
+        return studentMapper.FuzzySearchStudents(key);
+    }
+
 
 }

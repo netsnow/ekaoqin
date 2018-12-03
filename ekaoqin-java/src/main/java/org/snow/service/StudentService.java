@@ -19,4 +19,6 @@ public interface StudentService {
 
     List<StudentRespond> searchStudents(Student student);
 
+    List<StudentRespond> searchFuzzyStudents(String key);
+
 }

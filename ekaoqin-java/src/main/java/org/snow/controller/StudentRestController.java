@@ -49,4 +49,12 @@ public class StudentRestController {
     ) {
         return studentService.searchStudents(student);
     }
+
+    @RequestMapping(path = "/student/fuzzySearch", method = RequestMethod.GET)
+    public List<StudentRespond> searchFuzzyStudents(
+        @RequestParam(value = "key",required = false) String key
+    ) {
+        return studentService.searchFuzzyStudents(key);
+    }
+
 }

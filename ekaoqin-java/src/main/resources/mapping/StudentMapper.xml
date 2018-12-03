@@ -8,8 +8,22 @@
         <result column="face_sys_user_id" property="faceSysUserId" jdbcType="VARCHAR" />
         <result column="back_status" property="backStatus" jdbcType="VARCHAR" />
     </resultMap>
+    <resultMap id="FuzzyResultMap" type="org.snow.form.StudentRespond" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="room_id" property="roomId" jdbcType="BIGINT" />
+        <result column="class_id" property="classId" jdbcType="BIGINT" />
+        <result column="face_sys_user_id" property="faceSysUserId" jdbcType="VARCHAR" />
+        <result column="back_status" property="backStatus" jdbcType="VARCHAR" />
+        <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+        <result column="claxx_name" property="claxxName" jdbcType="VARCHAR" />
+    </resultMap>
+
     <sql id="Base_Column_List" >
         id,name,room_id,class_id,face_sys_user_id,back_status
+    </sql>
+
+    <sql id="Fuzzy_Column_List" >
+        student.id,student.name,student.room_id,student.class_id,student.face_sys_user_id,student.back_status,room.name as room_name,claxx.name as claxx_name
     </sql>
 
     <select id="searchStudents" resultMap="BaseResultMap">
@@ -28,6 +42,21 @@
             </if>
             <if test="student.backStatus != null">
                 and back_status = #{student.backStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="FuzzySearchStudents" resultMap="FuzzyResultMap">
+        select
+        <include refid="Fuzzy_Column_List" />
+        from student
+        left join claxx on student.class_id = claxx.id
+        left join room on student.room_id = room.id
+        <where>
+            <if test="searchKey != null">
+                student.name like "%"#{searchKey}"%"
+                or room.name like "%"#{searchKey}"%"
+                or claxx.name like "%"#{searchKey}"%"
             </if>
         </where>
     </select>
