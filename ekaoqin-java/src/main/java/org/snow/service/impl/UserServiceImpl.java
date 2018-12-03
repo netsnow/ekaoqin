@@ -100,6 +100,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public PageInfo<User> searchFuzzyUsers(String key, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> usersList = userMapper.searchFuzzyUsers(key);
+        PageInfo<User> usersPageInfo = new PageInfo<>(usersList);
+
+        return usersPageInfo;
+    }
+
+    @Override
     public Boolean validatePassword(String username, String password) {
         Objects.requireNonNull(username);
         Objects.requireNonNull(password);

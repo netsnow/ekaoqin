@@ -78,7 +78,15 @@ public class UserRestController {
 
         return userService.searchUsers(user, page, size);
     }
+    @ApiOperation(value = "模糊查询用户信息", notes = "根据GET的传递条件查询用户信息（目前支持username，fullname）")
+    @RequestMapping(path = "/user/search", method = RequestMethod.GET)
+    public PageInfo<User> searchFuzzyUsers(
+        @ApiParam(name = "key", value = "查询条件", required = false) @RequestParam(value = "key", required = false, defaultValue = "") String key,
+        @ApiParam(name = "page", value = "查询页码", required = true) @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+        @ApiParam(name = "size", value = "每页行数", required = true) @RequestParam(value = "size", required = false, defaultValue = "20") int size) {
 
+        return userService.searchFuzzyUsers(key, page, size);
+    }
     @ApiOperation(value = "密码验证", notes = "用于用户修改密码时，新旧密码的验证")
     @RequestMapping(path = "/user/validatePassword", method = RequestMethod.POST)
     public Boolean validatePassword(

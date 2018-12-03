@@ -18,7 +18,9 @@ public interface UserService {
 
     void deleteUserById(Long id);
 
-    public PageInfo<User> searchUsers(User user, int pageNum, int pageSize);
+    PageInfo<User> searchUsers(User user, int pageNum, int pageSize);
+
+    PageInfo<User> searchFuzzyUsers(String key, int pageNum, int pageSize);
 
     Boolean validatePassword(String username, String password);
 

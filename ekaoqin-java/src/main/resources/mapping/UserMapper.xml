@@ -32,4 +32,16 @@
             </if>
         </where>
     </select>
+
+    <select id="searchFuzzyUsers" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        <where>
+            <if test="searchKey != null">
+                user_name like "%"#{searchKey}"%"
+                or full_name like "%"#{searchKey}"%"
+            </if>
+        </where>
+    </select>
 </mapper>
