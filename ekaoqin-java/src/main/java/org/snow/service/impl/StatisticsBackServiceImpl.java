@@ -2,6 +2,7 @@ package org.snow.service.impl;
 
 
 import org.snow.dao.jpa.ClaxxRepository;
+import org.snow.dao.jpa.EntryLogRepository;
 import org.snow.dao.jpa.RoomRepository;
 import org.snow.dao.jpa.StatisticsBackRepository;
 import org.snow.dao.mybatis.mapper.StatisticsBackMapper;
@@ -25,6 +26,9 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
 
     @Autowired
     private StatisticsBackRepository statisticsBackRepository;
+
+    @Autowired
+    private EntryLogRepository entryLogRepository;
 
     @Autowired
     private ClaxxRepository claxxRepository;
@@ -72,9 +76,10 @@ public class StatisticsBackServiceImpl implements StatisticsBackService {
         //删除一个月前的数据
         Date now = new Date();
         Calendar rightNow = Calendar.getInstance();
-        rightNow.add(Calendar.MONTH, -3);//日期减3个月
+        rightNow.add(Calendar.MONTH, -1);//日期减1个月
         Date lastMonth = rightNow.getTime();
         statisticsBackRepository.deleteByDateLessThan(lastMonth);
+        entryLogRepository.deleteByCreateTimeLessThan(lastMonth);
 
         //添加当日数据
         List<StudentRespond> students = studentService.getAllStudents();
