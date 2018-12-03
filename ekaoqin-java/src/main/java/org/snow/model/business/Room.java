@@ -21,7 +21,7 @@ public class Room extends BaseEntity {
     private Long LimitNumber;
 
     @Column(name = "building_id")
-    private Long buildingId;
+    private Long buildingId = (long)1;
 
     public Long getId() {
         return id;

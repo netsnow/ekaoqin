@@ -13,15 +13,15 @@ public class Building extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 100, unique = false)
+    @Column(name = "name", length = 100, unique = true)
     @Size(min = 1, max = 100)
     private String name;
 
-    @Column(name = "entrance_camera", length = 300, unique = false)
+    @Column(name = "entrance_camera", length = 300, unique = true)
     @Size(min = 0, max = 300)
     private String entranceCamera;
 
-    @Column(name = "exit_camera", length = 300, unique = false)
+    @Column(name = "exit_camera", length = 300, unique = true)
     @Size(min = 0, max = 300)
     private String exitCamera;
 

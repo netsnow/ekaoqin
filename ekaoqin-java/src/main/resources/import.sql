@@ -5,3 +5,5 @@ INSERT INTO ekaoqin.user (ID, USER_NAME, PASSWORD, FIRSTNAME, LASTNAME, FULL_NAM
 
 INSERT INTO ekaoqin.user_authority (USER_ID, AUTHORITY_ID) VALUES (1, 2);
 INSERT INTO ekaoqin.user_authority (USER_ID, AUTHORITY_ID) VALUES (2, 1);
+
+INSERT INTO ekaoqin.building (id, exit_camera, entrance_camera, name) VALUES (1, '宿舍出口', '宿舍入口', '默认建筑');

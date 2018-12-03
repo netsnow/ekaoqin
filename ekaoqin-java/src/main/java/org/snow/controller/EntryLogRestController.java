@@ -41,5 +41,14 @@ public class EntryLogRestController {
         //return entryLogService.addEntryLog(entryLog);
         return true;
     }
-
+    @RequestMapping(path = "/entryLog/test/{faceSysId}/{cameraId}", method = RequestMethod.GET)
+    public Boolean addEntryLogTest(
+        @PathVariable String faceSysId,
+        @PathVariable String cameraId
+    ) {
+        EntryLog entryLog = new EntryLog();
+        entryLog.setFaceSysUserId(faceSysId);
+        entryLog.setCameraId(cameraId);
+        return entryLogService.addEntryLog(entryLog);
+    }
 }
