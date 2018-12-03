@@ -69,9 +69,9 @@ public class EntryLogServiceImpl implements EntryLogService {
         if (entryLog.getFaceSysUserId().equals("") || entryLog.getFaceSysUserId() == null) {
             entryLog.setFaceSysUserId("陌生人");
         } else {
-            entryLogRepository.save(entryLog);
             List<Student> students = studentRepository.findByFaceSysUserId(entryLog.getFaceSysUserId());
             if (students.size() > 0) {
+                entryLogRepository.save(entryLog);
                 //查找学生所属建筑的入口出口的摄像头，判断学生是否进出。
                 Optional<Room> room = roomRepository.findById(students.get(0).getRoomId());
                 if (room.isPresent()) {
