@@ -20,6 +20,9 @@ public class Room extends BaseEntity {
     @Column(name = "limit_number", unique = false)
     private Long LimitNumber;
 
+    @Column(name = "building_id")
+    private Long buildingId;
+
     public Long getId() {
         return id;
     }
@@ -42,5 +45,13 @@ public class Room extends BaseEntity {
 
     public void setLimitNumber(Long limitNumber) {
         LimitNumber = limitNumber;
+    }
+
+    public Long getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(Long buildingId) {
+        this.buildingId = buildingId;
     }
 }
