@@ -4,20 +4,15 @@
     <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
       <nz-col nzMd="8" nzSm="24">
         <nz-form-item>
-          <nz-form-label nzFor="no">房间名</nz-form-label>
+          <nz-form-label nzFor="name">房间名</nz-form-label>
           <nz-form-control>
-            <input nz-input [(ngModel)]="q.no" name="no" placeholder="请输入" id="no">
+            <input nz-input [(ngModel)]="roomInfo.name" name="name" placeholder="请输入" id="name">
           </nz-form-control>
         </nz-form-item>
       </nz-col>
-
       <nz-col [nzSpan]="expandForm ? 24 : 8" [class.text-right]="expandForm">
         <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading">查询</button>
-        <button nz-button type="reset" (click)="getData()" class="mx-sm">重置</button>
-        <a (click)="expandForm=!expandForm">
-          {{expandForm ? '收起' : '展开'}}
-          <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
-        </a>
+        <button nz-button type="reset" (click)="reset()" class="mx-sm">重置</button>
       </nz-col>
     </nz-row>
   </form>

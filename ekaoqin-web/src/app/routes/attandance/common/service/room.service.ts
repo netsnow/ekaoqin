@@ -13,8 +13,8 @@ export class RoomService {
         private msg: NzMessageService,
         private http: HttpClient,
     ) { }
-    getAllRooms() {
-        return this.http.get(this.roomUrl)
+    getAllRooms(roomInfo) {
+        return this.http.post(this.roomUrl + "/search", roomInfo)
     }
     saveRoom(roomInfo) {
         return this.http.post(this.roomUrl, roomInfo);

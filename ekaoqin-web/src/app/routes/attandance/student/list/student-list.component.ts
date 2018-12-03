@@ -62,8 +62,8 @@ export class StudentListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getClaxx();
-    this.getRoom();
+    //this.getClaxx();
+    //this.getRoom();
     this.getData();
   }
 
@@ -107,7 +107,8 @@ export class StudentListComponent implements OnInit {
     )
   }
   getRoom() {
-    this.roomService.getAllRooms().subscribe(
+    var roomInfo = {}
+    this.roomService.getAllRooms(roomInfo).subscribe(
       resp => {
         this.roomList = resp;
         console.log(resp);
@@ -202,7 +203,7 @@ export class StudentListComponent implements OnInit {
     });
   }
   reset(ls: any[]) {
-    for (const item of ls) item.value = false;
+    this.fuzzyKey = '';
     this.getData();
   }
 }

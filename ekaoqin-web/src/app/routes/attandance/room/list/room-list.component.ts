@@ -11,6 +11,7 @@ import { RoomService } from '../../common/service/room.service';
   templateUrl: './room-list.component.html',
 })
 export class RoomListComponent implements OnInit {
+  roomInfo = {};
   rooms = roomData;
   modalRoomname = "";
   q: any = {
@@ -55,7 +56,7 @@ export class RoomListComponent implements OnInit {
 
   getData() {
     this.loading = true;
-    this.roomService.getAllRooms().subscribe(
+    this.roomService.getAllRooms(this.roomInfo).subscribe(
       resp => {
         this.loading = false;
         this.data = resp;
@@ -144,7 +145,7 @@ export class RoomListComponent implements OnInit {
     });
   }
   reset(ls: any[]) {
-    for (const item of ls) item.value = false;
+    this.roomInfo = {};
     this.getData();
   }
 }
