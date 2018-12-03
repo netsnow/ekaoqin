@@ -4,39 +4,14 @@
     <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
       <nz-col nzMd="8" nzSm="24">
         <nz-form-item>
-          <nz-form-label nzFor="no">学生名</nz-form-label>
           <nz-form-control>
-            <input nz-input [(ngModel)]="q.no" name="no" placeholder="请输入" id="no">
-          </nz-form-control>
-        </nz-form-item>
-      </nz-col>
-      <nz-col nzMd="8" nzSm="24">
-        <nz-form-item>
-          <nz-form-label nzFor="status">班级</nz-form-label>
-          <nz-form-control>
-            <nz-select [(ngModel)]="q.status" name="status" id="status" [nzPlaceHolder]="'请选择'" [nzShowSearch]="true">
-              <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </nz-col>
-      <nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
-        <nz-form-item>
-          <nz-form-label nzFor="status3">宿舍</nz-form-label>
-          <nz-form-control>
-            <nz-select [nzPlaceHolder]="'请选择'" nzId="status3" [nzShowSearch]="true">
-              <nz-option *ngFor="let i of userType; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
-            </nz-select>
+            <input nz-input [(ngModel)]="fuzzyKey" name="fuzzyKey" placeholder="模糊查询" id="fuzzyKey">
           </nz-form-control>
         </nz-form-item>
       </nz-col>
       <nz-col [nzSpan]="expandForm ? 24 : 8" [class.text-right]="expandForm">
         <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading">查询</button>
         <button nz-button type="reset" (click)="getData()" class="mx-sm">重置</button>
-        <a (click)="expandForm=!expandForm">
-          {{expandForm ? '收起' : '展开'}}
-          <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
-        </a>
       </nz-col>
     </nz-row>
   </form>

@@ -12,6 +12,7 @@ import { RoomService } from '../../common/service/room.service';
   templateUrl: './student-list.component.html',
 })
 export class StudentListComponent implements OnInit {
+  fuzzyKey = '';
   rooms = '';
   modalStudentname = "";
   modalClaxxId = "";
@@ -25,7 +26,7 @@ export class StudentListComponent implements OnInit {
     statusList: [],
   };
   data: any = {};
-  classList: any = {};
+  classList: Array<Object> = [];
   roomList: any = {};
   loading = false;
   status = [
@@ -68,7 +69,7 @@ export class StudentListComponent implements OnInit {
 
   getData() {
     this.loading = true;
-    this.studentService.getAllStudents().subscribe(
+    this.studentService.getAllStudents(this.fuzzyKey).subscribe(
       resp => {
         this.loading = false;
         this.data = resp;
@@ -84,8 +85,20 @@ export class StudentListComponent implements OnInit {
   getClaxx() {
     this.claxxService.getAllClaxxes().subscribe(
       resp => {
-        this.classList = resp;
-        console.log(resp);
+       
+        //this.classList = resp;
+        for (var i = 0; i < resp["length"]; i++) {
+          var claxx = {};
+          claxx["index"] = i;
+          claxx["text"] = resp[i].name;
+          claxx["value"] = false;
+          claxx["type"] = "success";
+          claxx["checked"] = false;
+          this.classList.push(claxx);
+          //console.log(resp[i]);
+        }
+        console.log(this.status);
+        console.log(this.classList);
 
       },
       error => {

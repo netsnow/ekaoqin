@@ -13,8 +13,8 @@ export class StudentService {
         private msg: NzMessageService,
         private http: HttpClient,
     ) { }
-    getAllStudents() {
-        return this.http.get(this.studentUrl)
+    getAllStudents(key) {
+        return this.http.get(this.studentUrl+"/fuzzySearch?key="+key)
     }
     saveStudent(studentInfo) {
         return this.http.post(this.studentUrl, studentInfo);
