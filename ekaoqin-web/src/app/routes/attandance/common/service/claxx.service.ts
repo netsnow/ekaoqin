@@ -13,8 +13,8 @@ export class ClaxxService {
         private msg: NzMessageService,
         private http: HttpClient,
     ) { }
-    getAllClaxxes() {
-        return this.http.get(this.claxxUrl)
+    getAllClaxxes(claxxInfo) {
+        return this.http.post(this.claxxUrl + "/search", claxxInfo)
     }
     saveClaxx(claxxInfo) {
         return this.http.post(this.claxxUrl, claxxInfo);

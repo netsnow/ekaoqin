@@ -83,7 +83,8 @@ export class StudentListComponent implements OnInit {
     )
   }
   getClaxx() {
-    this.claxxService.getAllClaxxes().subscribe(
+    var classInfo = {}
+    this.claxxService.getAllClaxxes(classInfo).subscribe(
       resp => {
        
         //this.classList = resp;

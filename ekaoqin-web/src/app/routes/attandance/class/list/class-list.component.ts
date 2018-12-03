@@ -11,6 +11,7 @@ import { ClaxxService } from '../../common/service/claxx.service';
   templateUrl: './class-list.component.html',
 })
 export class ClassListComponent implements OnInit {
+  claxxInfo = {};
   classes = classData;
   modalClassname = "";
   modalClassStatus = "";
@@ -57,7 +58,7 @@ export class ClassListComponent implements OnInit {
 
   getData() {
     this.loading = true;
-    this.classService.getAllClaxxes().subscribe(
+    this.classService.getAllClaxxes(this.claxxInfo).subscribe(
       resp => {
         this.loading = false;
         this.data = resp;
@@ -149,7 +150,7 @@ export class ClassListComponent implements OnInit {
     });
   }
   reset(ls: any[]) {
-    for (const item of ls) item.value = false;
+    this.claxxInfo = {};
     this.getData();
   }
 }
