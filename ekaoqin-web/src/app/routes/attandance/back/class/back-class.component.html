@@ -1,6 +1,7 @@
 <page-header [title]="'归寝统计（班级单位）'"></page-header>
 <nz-card [nzBordered]="false">
   <form nz-form se-container="1" size="compact" gutter="32" [labelWidth]="null">
+    <!--
     <se label="所属年级" line>
       <tag-select>
         <nz-tag *ngFor="let i of categories; let idx = index" nzMode="checkable" [nzChecked]="i.value" (nzCheckedChange)="changeCategory($event, idx)">
@@ -8,10 +9,13 @@
         </nz-tag>
       </tag-select>
     </se>
-    <se label="其它选项">
+    -->
+    <se label="日期">
       <div class="ant-form ant-form-inline">
         <nz-form-item>
+          <!--
           <nz-form-label nzFor="Date">日期</nz-form-label>
+          -->
           <nz-form-control>
             <nz-date-picker (nzOnOpenChange)="dateChange()" [(ngModel)]="selectDate" [ngModelOptions]="{standalone: true}"></nz-date-picker>
           </nz-form-control>
